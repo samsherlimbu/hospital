@@ -1,9 +1,14 @@
-import Image from "next/image";
+'use client'
+import React from 'react'
+import Navbar from './components/Navbar/page'
+Navbar
 
-export default function Home() {
+const page = () => {
   return (
-    <div>
-      hello
-    </div>
-  );
+    <>
+    <Navbar/>
+    </>
+  )
 }
+
+export default page
