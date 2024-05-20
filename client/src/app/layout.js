@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NextUIProvider} from "@nextui-org/react";
+import Navbar from "./components/Navbar/page";
+import Footer from "./components/footer/page";
 
 
 
@@ -16,7 +18,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <NextUIProvider>
+         <Navbar/>  
         {children}
+          <Footer/>
         </NextUIProvider>
       </body>
     </html>
