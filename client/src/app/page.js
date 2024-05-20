@@ -1,16 +1,13 @@
 'use client'
 import React from 'react'
-import Home from './pages/home/home'
+import Slider from './components/imageSlider/page'
 
 
 const page = () => {
   return (
- <>
- <div>
- <Home/>
- </div>
- </>
-
+    <div>
+        <Slider/>
+    </div>
   )
 }
 
