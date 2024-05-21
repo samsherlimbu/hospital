@@ -15,7 +15,6 @@ import 'swiper/css/pagination'
 const Slider = ()=> {
   return (
     <>
-      
         <Swiper
           navigation
           pagination={{ type: 'fraction' }}
