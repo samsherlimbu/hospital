@@ -3,11 +3,13 @@ import { User } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { button } from '@nextui-org/react';
 
 
 
 const Navbar = () => {
   const [userIconClicked, setUserIconClicked] = useState(false);
+  const [isloggedIn,setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   const isActive = (path) => pathname === path;
@@ -37,6 +39,7 @@ const Navbar = () => {
               <li>
                 <User className='text-white h-6 w-6 ml-5 cursor-pointer' onClick={() => setUserIconClicked(!userIconClicked)} />
                 {userIconClicked && (
+                 isloggedIn ? (
                   <button 
                   className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
                   onClick={() => { 
@@ -45,6 +48,18 @@ const Navbar = () => {
                 >
                   <Link href='/pages/login'>sign in</Link>
                 </button>
+                
+                 ):(
+                  <Link href='/pages/login'>
+                      <button 
+                        className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
+                        onClick={() => setUserIconClicked(false)}
+                      >
+                        Sign In
+                      </button>
+                    </Link>
+                 )
+                
                 )}
               </li>
             </ul>
