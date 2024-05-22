@@ -3,7 +3,7 @@ import { User } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { button } from '@nextui-org/react';
+
 
 
 
@@ -34,6 +34,11 @@ const Navbar = () => {
               <li>
                 <Link href="/pages/About">
                   <p className={`hover:text-black ${isActive('/pages/About') ? 'text-black' : ''}`}>About Us</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/pages/Appointment">
+                  <p className={`hover:text-black ${isActive('/pages/Appointment') ? 'text-black' : ''}`}>Onile Appointment</p>
                 </Link>
               </li>
               <li>
