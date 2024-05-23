@@ -3,11 +3,12 @@ import counterSlice from "../reducerSlices/counterSlice";
 import boxSlice from "../reducerSlices/boxSlice";
 
 
+
 const store = configureStore({
-    reducer: {
+    reducer:{
         counter: counterSlice,
-        box: boxSlice,
+        box: boxSlice
     }
 })
 
-export default store;
+export default store
