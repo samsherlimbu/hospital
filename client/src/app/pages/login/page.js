@@ -3,7 +3,7 @@ import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { Input, navbar } from "@nextui-org/react";
 import Link from "next/link";
-import {  useFormik} from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
 
 

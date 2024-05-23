@@ -38,7 +38,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link href="/pages/Appointment">
-                  <p className={`hover:text-black ${isActive('/pages/Appointment') ? 'text-black' : ''}`}>Onile Appointment</p>
+                  <p className={`hover:text-black ${isActive('/pages/Appointment') ? 'text-black' : ''}`}>Online Appointment</p>
                 </Link>
               </li>
               <li>
