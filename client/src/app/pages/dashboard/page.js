@@ -2,6 +2,8 @@
 import { Button } from '@nextui-org/react';
 import React, { useState } from 'react';
 import AdminDashboard from '../AdminDashboard/page';
+import DoctorTable from '../doctor/page';
+
 
 
 
@@ -31,9 +33,9 @@ const Dashboard = () => {
       case 'dashboard':
         return <div> <AdminDashboard />  </div>;
       case 'device':
-        return <div> DoctorTable</div>;
+        return <div> </div>;
       case 'doctor':
-        return <div>Doctor Content</div>;
+        return <div><DoctorTable/></div>;
       case 'patient':
         return <div>Patient Content</div>;
       case 'doctor-schedule':
