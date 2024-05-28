@@ -8,6 +8,8 @@ import AdminDashboard from '../AdminDashboard/page';
 
 
 
+
+
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
 
@@ -29,7 +31,7 @@ const Dashboard = () => {
       case 'dashboard':
         return <div> <AdminDashboard />  </div>;
       case 'device':
-        return <div>Device Content</div>;
+        return <div> DoctorTable</div>;
       case 'doctor':
         return <div>Doctor Content</div>;
       case 'patient':
