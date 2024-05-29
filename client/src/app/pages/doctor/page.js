@@ -44,10 +44,10 @@ const DoctorTable = () => {
 
     // Toggle the visibility of the filter form
     const toggleFilter = () => {
-        setFilterVisible(!filterVisible);//if visible it make  unvisible and vice versa
+        setFilterVisible(!filterVisible);//if visible it make  un
     };
 
-    
+    // Handle pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
