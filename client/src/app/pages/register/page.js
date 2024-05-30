@@ -28,7 +28,7 @@ const Page = () => {
       .required('Required'),
     gender: Yup.string().oneOf(genders).required('Required'),
     bloodGroup: Yup.string().oneOf(bloodGroups).required('Required'),
-    status: Yup.string().oneOf(statusOptions).required('Required'),
+    //status: Yup.string().oneOf(statusOptions).required('Required'),
     address: Yup.string(),
     date: Yup.date().required('Required'),
     terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
@@ -43,7 +43,7 @@ const Page = () => {
       phone: '',
       gender: '',
       bloodGroup: '',
-      status: '',
+     // status: '',
       address: '',
       date: '',
       terms: false

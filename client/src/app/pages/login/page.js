@@ -1,45 +1,42 @@
 "use client";
 import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
-import { Input, navbar } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import Link from "next/link";
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
-
-
-
-const page = () => {
-
+const Page = () => {
   const SignupSchema = Yup.object().shape({
     password: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'), 
-  email: Yup.string().email('Invalid email').required('Required'),
-  })
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .max(50, 'Password is too long - should be 50 chars maximum.')
+      .required('Password is required'), 
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+  });
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    validationSchema:SignupSchema,
+    validationSchema: SignupSchema,
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
-  })
+  });
+
   return (
     <div className="flex items-center justify-center h-screen w-full bg-slate-200 shadow-lg">
-      <div className="bg-slate-300 h-[70%] w-[25%] px-9 rounded-lg">
-        <div className=" flex items-center justify-center py-7">
-          <IoPersonOutline className="bg-white size-14 rounded-full shadow-lg" />
+      <div className="bg-slate-300 h-auto w-[90%] sm:w-[50%] md:w-[35%] lg:w-[25%] p-8 rounded-lg shadow-md">
+        <div className="flex items-center justify-center py-7">
+          <IoPersonOutline className="bg-white size-14 rounded-full shadow-lg text-5xl p-2" />
         </div>
-        <h2 className="flex items-center justify-center font-semibold">
-          Sign in your account
+        <h2 className="flex items-center justify-center font-semibold text-xl mb-4">
+          Sign in to your account
         </h2>
         <form onSubmit={formik.handleSubmit}>
-          <div className="flex items-center justify-center mt-5 ">
+          <div className="mb-5">
             <Input
               isClearable
               type="email"
@@ -47,65 +44,63 @@ const page = () => {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              placeholder="Enter you email"
-              defaultValue="name@gmail.com"
-              onClear={() => 
-                formik.setFieldValue('email','')
-              }
-              className="max-w-xs"
+              placeholder="Enter your email"
+              onClear={() => formik.setFieldValue('email', '')}
+              className="w-full"
+              status={formik.errors.email && formik.touched.email ? 'error' : 'default'}
             />
+            {formik.errors.email && formik.touched.email && (
+              <div className="text-red-500 text-sm mt-1">{formik.errors.email}</div>
+            )}
           </div>
-          {formik.errors.email}
           
-          <div className="flex items-center justify-center mt-5 ">
+          <div className="mb-5">
             <Input
-              isClearable //we have to use ref hook 
+              isClearable
               type="password"
-              label="password"
-              value={formik.values.password}
+              label="Password"
               name="password"
-              defaultValue="Enter your password"
-              placeholder="Enter your password"
+              value={formik.values.password}
               onChange={formik.handleChange}
-              onClear={() =>
-                formik.setFieldValue('password','')
-              }
-              className="max-w-xs border"
+              placeholder="Enter your password"
+              onClear={() => formik.setFieldValue('password', '')}
+              className="w-full"
+              status={formik.errors.password && formik.touched.password ? 'error' : 'default'}
             />
+            {formik.errors.password && formik.touched.password && (
+              <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
+            )}
           </div>
-          {formik.errors.password}
          
-          <div className="flex items-center justify-between mt-4 ">
-            <div className="flex justify-start">
-              <div>
-                <input type="checkbox" name="checkbox" id="remember" />
-              </div>
-              <div className="ml-3 ">
-                <label for="remeber">Remeber me</label>
-              </div>
-            </div>
-            <a href="#" className="text-primary-600 hover:underline">
+          <div className="flex items-center justify-between mb-4">
+            <label className="flex items-center space-x-2">
+              <input type="checkbox" name="remember" id="remember" className="h-4 w-4 text-primary-600 border-gray-300 rounded" />
+              <span className="ml-2 text-sm text-gray-900">Remember me</span>
+            </label>
+            <Link href="#" className="text-primary-600 hover:underline text-sm">
               Forgot password?
-            </a>
+            </Link>
           </div>
-          <div className="flex items-center justify-center mt-4">
+          
+          <div className="flex items-center justify-center mb-4">
             <button
               type="submit"
-              className="w-[70%] text-white bg-primary-600 hover:bg-primary-700 rounded-lg h-10"
+              className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg h-10 transition-colors duration-200"
             >
               Sign in
             </button>
           </div>
-          <div className="flex items-center justify-center mt-4">
-          <p className="text-sm font-light text-black dark:text-gray-400">
-            Don’t have an account yet?{" "}
-            <Link
-              href="/pages/register"
-              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-            >
-              Sign up
-            </Link>
-          </p>
+          
+          <div className="flex items-center justify-center">
+            <p className="text-sm text-gray-600">
+              Don’t have an account yet?{" "}
+              <Link
+                href="/pages/register"
+                className="font-medium text-primary-600 hover:underline"
+              >
+                Sign up
+              </Link>
+            </p>
           </div>
         </form>
       </div>
@@ -113,4 +108,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
