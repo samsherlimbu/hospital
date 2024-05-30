@@ -1,14 +1,15 @@
 'use client';
 import { Button } from '@nextui-org/react';
 import React, { useState } from 'react';
-import AdminDashboard from '../AdminDashboard/page';
-import DoctorTable from '../doctor/page';
-import Patient from '../patient/page';
+import AdminDashboard from '../pages/AdminDashboard/page';
+import DoctorTable from '../pages/doctor/page';
+import Patient from '../pages/patient/page';
 import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaStethoscope, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import DoctorSchedule from '../doctorschedule/page';
-import PatientAppointment from '../patientappointment/page';
-import PatientCaseStudies from '../casestudies/page';
-import Prescription from '../prescription/page';
+import DoctorSchedule from '../pages/doctorschedule/page';
+import PatientAppointment from '../pages/patientappointment/page';
+import PatientCaseStudies from '../pages/casestudies/page';
+import Prescription from '../pages/prescription/page';
+
 
 
 
