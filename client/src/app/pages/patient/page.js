@@ -1,7 +1,8 @@
-// pages/Patient.js
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import AddPatientForm from "../addpatient/page";
+import { toggleAddPatientForm, toggleFilterVisibility,setPage } from "@/redux/reducerSlices/formSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Patient = () => {
@@ -16,13 +17,13 @@ const Patient = () => {
     { id: 8, name: 'bishal', email: 'bishal@gmail.com', phone: '0123456788', status: 'active' },
   ];
 
+  const dispatch = useDispatch();
+  const { filterVisible ,showAddPatientForm,currentPage } = useSelector((state) => state.form);
+
   const [patientsPerPage] = useState(5);
   const [patients, setPatients] = useState(allPatients);
-  const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({ name: '', email: '', phone: '' });
-  const [filterVisible, setFilterVisible] = useState(false);
-  const [showAddPatientForm, setShowAddPatientForm] = useState(false);
-
+  
   const indexOfLastPatient = currentPage * patientsPerPage;
   const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
   const currentPatients = patients.slice(indexOfFirstPatient, indexOfLastPatient);
@@ -40,32 +41,30 @@ const Patient = () => {
         patient.phone.includes(filters.phone)
       )
     );
-    setCurrentPage(1); // Reset to the first page after filtering
+    dispatch(setPage(1)); // Reset to the first page after filtering
   };
 
-  const toggleFilter = () => {
-    setFilterVisible(!filterVisible);
-  };
+ 
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => dispatch(setPage(pageNumber));
 
   return (
     <div className="container mx-auto p-4">
       {showAddPatientForm ? (
-        <AddPatientForm onCancel={() => setShowAddPatientForm(false)} />
+        <AddPatientForm onCancel={() => dispatch(toggleAddPatientForm())} />
       ) : (
         <>
           <div className="flex items-center justify-between mb-4">
             <div>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={() => setShowAddPatientForm(true)}
+                onClick={() => dispatch(toggleAddPatientForm())}
               >
                 Add Patient
               </button>
             </div>
             <div>
-              <button onClick={toggleFilter} className="btn-filter bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
+              <button onClick={()=>dispatch(toggleFilterVisibility())} className="btn-filter bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
             </div>
           </div>
           {filterVisible && (

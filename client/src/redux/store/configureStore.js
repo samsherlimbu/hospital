@@ -5,6 +5,8 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import counterSlice from '../reducerSlices/counterSlice';
 import boxSlice from '../reducerSlices/boxSlice';
+import formSlice from '../reducerSlices/formSlice';
+
 
 const persistConfig = {
   key: 'root',
@@ -14,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   counter: counterSlice,
   box: boxSlice,
+  form:formSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

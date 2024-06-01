@@ -241,7 +241,6 @@ const AddPatientForm = ({ onCancel }) => {
                 </svg>
                 <div className="flex text-sm text-gray-600 mt-2">
                   <label
-                    htmlFor="file-upload"
                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                   >
                     <span>Upload a file</span>
@@ -297,6 +296,28 @@ const AddPatientForm = ({ onCancel }) => {
               ) : null}
             </div>
           </div>
+          <div className="flex items-center">
+            <input
+              id="terms"
+              name="terms"
+              type="checkbox"
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              value={formik.values.terms}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+              I accept the{" "}
+              <a className="text-indigo-600 hover:underline" href="#">
+                Terms and Conditions
+              </a>
+              <span className="text-red-500">*</span>
+            </label>
+          </div>
+          {formik.touched.terms && formik.errors.terms ? (
+            <div className="text-red-500 text-sm">{formik.errors.terms}</div>
+          ) : null}
+
           
           {formik.touched.terms && formik.errors.terms ? (
             <div className="text-red-500 text-sm">{formik.errors.terms}</div>
