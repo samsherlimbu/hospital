@@ -39,7 +39,7 @@ const Appointment = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container bg-slate-300 mx-auto px-4 py-8 mt-6 rounded-lg shadow-lg mb-10">
       <div className="border-t border-b border-blue-300 py-3">
         <h1 className="text-center font-extrabold text-4xl mb-7 text-blue-700">
           Book an Appointment

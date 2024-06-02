@@ -55,7 +55,7 @@ const AddPatientForm = ({ onCancel }) => {
   });
 
   return (
-    <div className=" flex items-center justify-center bg-gray-100 w-full h-full">
+    <div className=" flex items-center justify-center bg-gray-100 w-full h-full mt-0">
       <div className="bg-slate-200 p-8 rounded-md shadow-md w-[80%] ">
         <h1 className="mb-6 text-2xl font-bold text-center">Add Patient</h1>
         <form className="grid grid-cols-1 gap-6" onSubmit={formik.handleSubmit}>

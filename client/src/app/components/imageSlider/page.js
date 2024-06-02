@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 const images = [
   "/first.png",
   "/second.png",
-  "/third.png"
+  "/third.png",
+  "/fourth.png",
 ];
 const ImageSlider=()=> {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,7 +27,7 @@ const ImageSlider=()=> {
   };
 
   return (
-    <div className="relative w-full h-80 overflow-hidden">
+    <div className="relative w-full h-100 overflow-hidden">
       <div className="flex transition-transform ease-in-out duration-500" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
         {images.map((src, index) => (
           <div key={index} className="min-w-full h-80 relative">

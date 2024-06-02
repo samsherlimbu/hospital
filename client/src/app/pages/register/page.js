@@ -7,7 +7,7 @@ import * as Yup from "yup";
 
 const genders = ["Male", "Female", "Other"];
 const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB-"];
-const statusOptions = ["Active", "Inactive"];
+const statusOptions = ["Patient"];
 
 const Page = () => {
   const registerSchema = Yup.object().shape({
@@ -55,7 +55,7 @@ const Page = () => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center px-8 py-8 w-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center px-8 py-8 w-screen bg-gray-200">
       <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6 space-y-4 md:space-y-6 dark:bg-gray-800 dark:border-gray-700">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Create your account
@@ -248,7 +248,7 @@ const Page = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Status <span className="text-red-500">*</span>
+                Role <span className="text-red-500">*</span>
               </label>
               <select
                 id="status"

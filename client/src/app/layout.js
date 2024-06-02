@@ -1,3 +1,4 @@
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NextUIProvider} from "@nextui-org/react";
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
           <ReduxProvider>
          <Navbar/>  
         {children}
+        <Footer />
         </ReduxProvider>
         </NextUIProvider>
       </body>
