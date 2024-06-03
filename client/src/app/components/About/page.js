@@ -1,10 +1,22 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
+import Navbar from '../Navbar/page';
+import Footer from '../footer/page';
+
 
 const About = () => {
+
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const toggleItem = (index) => {
+      setActiveIndex(prevIndex => (prevIndex === index ? null : index));
+    };
   return (
-    <div className='h-screen px-10'>
-      <div className='flex justify-center items-center mt-6'>
-        <h1 className='font-bold'>About Us</h1>
+    <div className='p-4 '>
+        <Navbar/>
+    <div className=' h-full p-10 bg-slate-200 shadow-lg rounded-lg mb-3 mt-2'>
+      <div className='flex justify-center items-center mt-6 '>
+        <h1 className='font-extrabold text-4xl'>About Us</h1>
       </div>
       <div className='px-10 mt-6 '>
       <p>
@@ -35,8 +47,63 @@ const About = () => {
           "Prevention is better than cure." With this philosophy, Kantipur Hospital focuses on regular health check-up packages. These packages include thorough physical check-ups, and if patients require further tests, they are referred to specialists.
         </p>
         <br />
+        <h1 className='font-extrabold text-orange-600 text-4xl text-center'>BOARD OF DIRECTORS</h1>
+        
+      <div className="bg-blue-500 text-white mb-2">
+        <div
+          className="p-4 cursor-pointer"
+          onClick={() => toggleItem(0)}
+        >
+          CHAIRMAN
+        </div>
+        {activeIndex === 0 && (
+          <div className="p-4 bg-blue-200 text-black">
+            chairman-board-of-director
+          </div>
+        )}
       </div>
-      
+      <div className="bg-blue-500 text-white mb-2">
+        <div
+          className="p-4 cursor-pointer"
+          onClick={() => toggleItem(1)}
+        >
+          MANAGING DIRECTOR
+        </div>
+        {activeIndex === 1 && (
+          <div className="p-4 bg-blue-200 text-black">
+            managing-director-board-of-director
+          </div>
+        )}
+      </div>
+      <div className="bg-blue-500 text-white mb-2">
+        <div
+          className="p-4 cursor-pointer"
+          onClick={() => toggleItem(2)}
+        >
+          EXECUTIVE DIRECTOR
+        </div>
+        {activeIndex === 2 && (
+          <div className="p-4 bg-blue-200 text-black">
+            executive-director-board-of-director
+          </div>
+        )}
+      </div>
+      <div className="bg-blue-500 text-white mb-2">
+        <div
+          className="p-4 cursor-pointer"
+          onClick={() => toggleItem(3)}
+        >
+          MEMBER
+        </div>
+        {activeIndex === 3 && (
+          <div className="p-4 bg-blue-200 text-black">
+            member-board-of-director
+          </div>
+        )}
+      </div>
+      </div>
+    </div>
+    <Footer/>
     </div>
   )
 }

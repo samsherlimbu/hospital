@@ -75,10 +75,10 @@ const Navbar = () => {
                     onMouseLeave={handleMouseLeave}
                   >
                     <ul className="p-2">
-                    <li className="p-2 hover:bg-gray-200"><Link href="/pages/About">About Us</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/About/Company">Company</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/About/Team">Team</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/About/Careers">Careers</Link></li>
+                    <li className="p-2 hover:bg-gray-200"><Link href="/components/About">About Us</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Company">Company</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Team">Team</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Careers">Careers</Link></li>
                     </ul>
                   </div>
                 )}
