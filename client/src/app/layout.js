@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <NextUIProvider>
           <ReduxProvider>
-         <Navbar/>  
+        
         {children}
-        <Footer />
+        
         </ReduxProvider>
         </NextUIProvider>
       </body>

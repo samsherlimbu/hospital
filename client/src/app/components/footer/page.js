@@ -18,9 +18,9 @@ const Footer = () => {
     
         <div className='flex flex-col items-center'>
           <p className='font-bold'>📍 Address</p>
-          <p>Subidhanagar Tinkune, Kathmandu, Nepal</p>
+          <p>GardenChowk pepsicola, Kathmandu, Nepal</p>
           <p className='font-bold mt-4'>📧 Email</p>
-          <p>kantipurh@gmail.com</p>
+          <p>kantipurhospital@gmail.com</p>
           <p className='font-bold mt-4'>📞 Emergency: +977-01-4111858</p>
           <p>Blood bank: +977-01-4111692</p>
           <p className='font-bold mt-4'>🚑 Ambulance: +977-01-4111627</p>

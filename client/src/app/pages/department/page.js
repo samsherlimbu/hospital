@@ -1,4 +1,4 @@
-import DepartmentCard from '@/app/components/department/departmentCard';
+import DepartmentCard from '@/app/components/departmentcard/departmentCard';
 import React from 'react';
 
 
