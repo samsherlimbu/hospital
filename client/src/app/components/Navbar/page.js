@@ -41,7 +41,7 @@ const Navbar = () => {
               onMouseEnter={()=>handleMouseEnter('service')}
               onMouseLeave={handleMouseLeave}
               >
-                <p className={`hover:text-black ${isActive('/Service')? 'text-black' : ''}`}>
+                <p className={`cursor-pointer hover:text-black ${isActive('/Service')? 'text-black' : ''}`}>
                  Our Services
                 </p>
                 {showDropdown === 'service' && (
@@ -65,19 +65,18 @@ const Navbar = () => {
                 onMouseLeave={handleMouseLeave}
                 className="relative"
               >
-                <p className={`hover:text-black ${isActive('/pages/About') ? 'text-black' : ''}`}>
+                <p className={`cursor-pointer hover:text-black ${isActive('/pages/About') ? 'text-black' : ''}`}>
                   About Us
                 </p>
                 {showDropdown === 'about' && (
                   <div
-                    className="absolute top-full mt-0 bg-white text-black rounded-md shadow-lg z-50"
+                    className="absolute top-full w-24 mt-0 bg-white text-black rounded-md shadow-lg z-50"
                     onMouseEnter={()=>handleMouseEnter('about')}
                     onMouseLeave={handleMouseLeave}
                   >
                     <ul className="p-2">
-                    <li className="p-2 hover:bg-gray-200"><Link href="/components/About">About Us</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Company">Company</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Team">Team</Link></li>
+                    <li className="p-2 hover:bg-gray-200"><Link href="/components/About">AboutUs</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/components/Team">Doctors</Link></li>
                       <li className="p-2 hover:bg-gray-200"><Link href="/components/Careers">Careers</Link></li>
                     </ul>
                   </div>
