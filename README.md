@@ -1,4 +1,4 @@
-# npay
+# Hospital Management System
 
 
 
