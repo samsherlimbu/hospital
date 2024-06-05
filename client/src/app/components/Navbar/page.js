@@ -1,23 +1,26 @@
 'use client'
 import { User } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleUserIcon,setShowDropdown, hideDropdown } from '@/redux/reducerSlices/navbarSlice';
+import Service from '../service/page';
+ 
 
 const Navbar = () => {
-  const [userIconClicked, setUserIconClicked] = useState(false);
-  const [isloggedIn, setIsLoggedIn] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const dispatch = useDispatch();
+  const { userIconClicked, isLoggedIn, showDropdown } = useSelector(state => state.navbar);
   const pathname = usePathname();
 
   const isActive = (path) => pathname === path;
 
-  const handleMouseEnter = (Menu) => {
-    setShowDropdown(Menu);
+  const handleMouseEnter = (menu) => {
+    dispatch(setShowDropdown(menu));
   };
 
   const handleMouseLeave = () => {
-    setShowDropdown(null);
+    dispatch(hideDropdown());
   };
 
   return (
@@ -38,30 +41,31 @@ const Navbar = () => {
                 </Link>
               </li>
               <li 
-              onMouseEnter={()=>handleMouseEnter('service')}
-              onMouseLeave={handleMouseLeave}
+                onMouseEnter={() => handleMouseEnter('service')}
+                onMouseLeave={handleMouseLeave}
               >
-                <p className={`cursor-pointer hover:text-black ${isActive('/Service')? 'text-black' : ''}`}>
+                <p className={`cursor-pointer hover:text-black ${isActive('/Service') ? 'text-black' : ''}`}>
                  Our Services
                 </p>
                 {showDropdown === 'service' && (
                   <div
-                    className="absolute top-full mt-0 bg-white text-black rounded-md shadow-lg z-50"
+                    className="absolute top-full w-40 text-center mt-0 bg-white text-black rounded-md shadow-lg z-50"
                     onMouseEnter={() => handleMouseEnter('service')}
                     onMouseLeave={handleMouseLeave}
-                    >
-                      <ul className="p-2">
-                        <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Cardiology">Cardiology</Link></li>
-                        <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Dermatology">Dermatology</Link></li>
-                        <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Gastroenterology">Gastroenterology</Link></li>
-                        <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Neurology">Neurology</Link></li>
-                        <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Oncology">Oncology</Link></li>
-                        </ul>
-                    </div>
+                  >
+                    {/* <ul className="p-2">
+                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Cardiology">Cardiology</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Dermatology">Dermatology</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Gastroenterology">Gastroenterology</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Neurology">Neurology</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Oncology">Oncology</Link></li>
+                    </ul> */}
+                    <Service/>
+                  </div>
                 )}
               </li>
               <li
-                onMouseEnter={()=>handleMouseEnter('about')}
+                onMouseEnter={() => handleMouseEnter('about')}
                 onMouseLeave={handleMouseLeave}
                 className="relative"
               >
@@ -71,11 +75,11 @@ const Navbar = () => {
                 {showDropdown === 'about' && (
                   <div
                     className="absolute top-full w-24 mt-0 bg-white text-black rounded-md shadow-lg z-50"
-                    onMouseEnter={()=>handleMouseEnter('about')}
+                    onMouseEnter={() => handleMouseEnter('about')}
                     onMouseLeave={handleMouseLeave}
                   >
                     <ul className="p-2">
-                    <li className="p-2 hover:bg-gray-200"><Link href="/components/About">AboutUs</Link></li>
+                      <li className="p-2 hover:bg-gray-200"><Link href="/components/About">AboutUs</Link></li>
                       <li className="p-2 hover:bg-gray-200"><Link href="/components/Team">Doctors</Link></li>
                       <li className="p-2 hover:bg-gray-200"><Link href="/components/Careers">Careers</Link></li>
                     </ul>
@@ -88,22 +92,22 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <User className='text-white h-6 w-6 ml-5 cursor-pointer' onClick={() => setUserIconClicked(!userIconClicked)} />
+                <User className='text-white h-6 w-6 ml-5 cursor-pointer' onClick={() => dispatch(toggleUserIcon())} />
                 {userIconClicked && (
-                  isloggedIn ? (
+                  isLoggedIn ? (
                     <button 
                       className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
                       onClick={() => { 
-                        setUserIconClicked(!userIconClicked);
+                        dispatch(toggleUserIcon());
                       }}
                     >
-                      <Link href='/pages/login'>sign in</Link>
+                      <Link href='/pages/login'>Sign In</Link>
                     </button>
                   ) : (
                     <Link href='/pages/login'>
                       <button 
                         className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
-                        onClick={() => setUserIconClicked(false)}
+                        onClick={() => dispatch(toggleUserIcon())}
                       >
                         Sign In
                       </button>
@@ -117,6 +121,6 @@ const Navbar = () => {
       </div>
     </>
   );
-}
+};
 
 export default Navbar;
