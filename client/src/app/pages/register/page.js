@@ -43,16 +43,25 @@ const Page = () => {
       phone: '',
       gender: '',
       bloodGroup: '',
-     // status: '',
+      status: '',
       address: '',
       date: '',
       terms: false
     },
     validationSchema: registerSchema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      registerUser(values)
     }
   });
+
+  const registerUser = async (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+  };
+  const response = await fetch('http://localhost:6000/register', requestOptions);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center px-8 py-8 w-screen bg-gray-200">
