@@ -4,9 +4,13 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const dbConnect = require('./src/db/connection')
 
+const cors = require('cors');
+
+
 
 dbConnect()
 const app = express()
+app.use(cors())
 require('dotenv').config()
 //body parser
 app.use(express.json())
@@ -21,17 +25,22 @@ const userSchema = new Schema({
   phoneNumber:Number,
   email: String,
   password: String,
+  status: String,
+  terms: Boolean,
   confirmPassword: String,
   bloodGroup: String,
 });
 
 
 const User = mongoose.model('User', userSchema);
-const port = process.env.PORT
+const port = process.env.PORT;
+
+
 
 
 app.post('/register',async (req, res) => {
-  const hashPassword = await bcrypt.hash(req.body.password,saltRounds)
+  console.log(req.body.email);
+  const hashPassword = await bcrypt.hash(req.body?.password,saltRounds)
   console.log(hashPassword);
   req.body.password =  hashPassword;
 
@@ -78,6 +87,7 @@ app.post('/login', async (req, res) => {
     res.json({ message: 'phoneNUmber not registered' });
   }
 })
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
