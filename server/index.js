@@ -1,94 +1,92 @@
-const express = require('express')
+const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-const dbConnect = require('./src/db/connection')
-
+const dbConnect = require('./src/db/connection');
 const cors = require('cors');
 
-
-
-dbConnect()
-const app = express()
-app.use(cors())
-require('dotenv').config()
+dbConnect();
+const app = express();
+app.use(cors());
+require('dotenv').config();
 //body parser
-app.use(express.json())
+app.use(express.json());
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  fullName: String, 
-  address: String,
-  gender: String,
-  phoneNumber:Number,
-  email: String,
-  password: String,
-  status: String,
-  terms: Boolean,
-  confirmPassword: String,
-  bloodGroup: String,
+  fullName: { type: String, required: true },
+  address: { type: String, required: true },
+  gender: { type: String, required: true },
+  phoneNumber: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  status: { type: String, required: true },
+  terms: { type: Boolean, required: true },
+  confirmPassword: { type: String, required: true },
+  bloodGroup: { type: String, required: true },
 });
-
 
 const User = mongoose.model('User', userSchema);
 const port = process.env.PORT;
 
+app.post('/register', async (req, res) => {
+  try {
+    console.log('received request:',req.body);
 
+    const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
+    req.body.password = hashPassword;
 
+    const phoneNumberUserExists = await User.exists({ phoneNumber: req.body.phoneNumber });
+    const emailUserExists = await User.exists({ email: req.body.email });
 
-app.post('/register',async (req, res) => {
-  console.log(req.body.email);
-  const hashPassword = await bcrypt.hash(req.body?.password,saltRounds)
-  console.log(hashPassword);
-  req.body.password =  hashPassword;
+    if (phoneNumberUserExists) {
+      return res.status(400).send({ message: 'phoneNumber number already exists' });
+    } else if (emailUserExists) {
+      return res.status(400).send({ message: 'Email already exists' });
+    }
 
-
-  console.log(req.body.phoneNumber)
-  console.log(req.body)
-  const phoneuserExists = await User.exists({phoneNumber:req.body.phoneNumber})
-  const emailuserExists = await User.exists({email:req.body.email})
-
-
-  console.log(phoneuserExists);
-  console.log(emailuserExists);
-
-
-  if(phoneuserExists){
-   return res.send({message:'PhoneNumber already exists'})
-  }else if(emailuserExists){
-    return res.send({message:'email already exists'})
+    await User.create(req.body);
+    return res.status(201).send({ message: 'User registration successful' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ message: 'Internal Server Error' });
   }
-  await User.create(req.body)
-  return res.send({message:'user registration successful'})
-})
+});
 
 app.get('/register', async (req, res) => {
-  const data = await User.find()
-  res.send(data)
-})
+  try {
+    const data = await User.find();
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
 
 app.post('/login', async (req, res) => {
-  console.log(req.body);
-  const user = await User.findOne({phoneNumber:req.body.phoneNumber})
-  if (user) {
-    const match = await bcrypt.compare(req.body.password, user.password);
-    if (match) {
-      const token = jwt.sign({ phoneNumber: req.body.phoneNumber }, process.env.SECRET_KEY);//secret key from the .env
-      console.log(token);
-
-
-      return res.send({ message: 'authorized', token });
+  try {
+    console.log(req.body);
+    const user = await User.findOne({ phoneNumber: req.body.phoneNumber });
+    if (user) {
+      const match = await bcrypt.compare(req.body.password, user.password);
+      if (match) {
+        const token = jwt.sign({ phoneNumber: req.body.phoneNumber }, process.env.SECRET_KEY); // secret key from the .env
+        console.log(token);
+        return res.send({ message: 'Authorized', token });
+      } else {
+        return res.status(401).send({ message: 'Invalid password' });
+      }
     } else {
-      return res.send({ message: 'Invalid password' });
+      return res.status(404).send({ message: 'phoneNumber not registered' });
     }
-  }else{
-    res.json({ message: 'phoneNUmber not registered' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ message: 'Internal Server Error' });
   }
-})
-
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
