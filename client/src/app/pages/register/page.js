@@ -5,13 +5,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 
+
 const genders = ["Male", "Female", "Other"];
 const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB-"];
 const statusOptions = ["Patient"];
 
 const Page = () => {
+
+  
   const registerSchema = Yup.object().shape({
-    name: Yup.string()
+    fullName: Yup.string()
       .min(3, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
@@ -22,13 +25,13 @@ const Page = () => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Required'),
-    phone: Yup.string()
-      .matches(/^[0-9]+$/, "Phone number must be numeric")
-      .min(10, 'Phone number must be at least 10 digits')
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]+$/, "phoneNumber number must be numeric")
+      .min(10, 'phoneNumber number must be at least 10 digits')
       .required('Required'),
     gender: Yup.string().oneOf(genders).required('Required'),
     bloodGroup: Yup.string().oneOf(bloodGroups).required('Required'),
-    //status: Yup.string().oneOf(statusOptions).required('Required'),
+    status: Yup.string().oneOf(statusOptions).required('Required'),
     address: Yup.string(),
     date: Yup.date().required('Required'),
     terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
@@ -36,11 +39,11 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      fullName: '',
       email: '',
       password: '',
       confirmPassword: '',
-      phone: '',
+      phoneNumber: '',
       gender: '',
       bloodGroup: '',
       status: '',
@@ -54,19 +57,31 @@ const Page = () => {
     }
   });
 
+  
+
   const registerUser = async (values) => {
+    
+
+  try{
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
   };
-  const response = await fetch('http://localhost:6000/register', requestOptions);
+  const response = await fetch('http://localhost:8000/register', requestOptions);
+  const data = await response.json();
+  alert(data.message)
+  }catch(error) {
+    console.error("Error during registration:", error);
+      alert("An error occurred during registration. Please try again.");
+  }
+  
   }
 
   return (
     <div className="flex flex-col items-center justify-center px-8 py-8 w-screen bg-gray-200">
       <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6 space-y-4 md:space-y-6 dark:bg-gray-800 dark:border-gray-700">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+        <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Create your account
         </h1>
         <form className="grid grid-cols-1 gap-6" onSubmit={formik.handleSubmit}>
@@ -76,16 +91,16 @@ const Page = () => {
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="fullName"
+              name="fullName"
               className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="Name"
-              value={formik.values.name}
+              value={formik.values.fullName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.name && formik.errors.name ? (
-              <div className="text-red-500 text-sm">{formik.errors.name}</div>
+            {formik.touched.fullName && formik.errors.fullName ? (
+              <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
             ) : null}
           </div>
 
@@ -150,20 +165,20 @@ const Page = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Phone <span className="text-red-500">*</span>
+              phoneNumber <span className="text-red-500">*</span>
             </label>
             <input
               type="tel"
-              id="phone"
-              name="phone"
+              id="phoneNumber"
+              name="phoneNumber"
               className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Phone Number"
-              value={formik.values.phone}
+              placeholder="phoneNumber"
+              value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {formik.touched.phone && formik.errors.phone ? (
-              <div className="text-red-500 text-sm">{formik.errors.phone}</div>
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <div className="text-red-500 text-sm">{formik.errors.phoneNumber}</div>
             ) : null}
           </div>
 
