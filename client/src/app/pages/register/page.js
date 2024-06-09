@@ -3,7 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 const genders = ["Male", "Female", "Other"];
@@ -11,8 +12,7 @@ const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB-"];
 const statusOptions = ["Patient"];
 
 const Page = () => {
-
-  
+  const router = useRouter();
   const registerSchema = Yup.object().shape({
     fullName: Yup.string()
       .min(3, 'Too Short!')
@@ -57,12 +57,8 @@ const Page = () => {
     }
   });
 
-  
-
   const registerUser = async (values) => {
-    
-
-  try{
+  
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -70,12 +66,13 @@ const Page = () => {
   };
   const response = await fetch('http://localhost:8000/register', requestOptions);
   const data = await response.json();
-  alert(data.message)
-  }catch(error) {
-    console.error("Error during registration:", error);
-      alert("An error occurred during registration. Please try again.");
+  if(response.status == '200'){
+    toast.success(data.message);
+    router.push('/pages/login');
+  }else{
+    toast.error(data.message);
   }
-  
+ 
   }
 
   return (

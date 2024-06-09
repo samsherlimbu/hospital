@@ -5,8 +5,12 @@ import { Input } from "@nextui-org/react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
 
 const Page = () => {
+  const router = useRouter();
   const SignupSchema = Yup.object().shape({
     password: Yup.string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
@@ -22,9 +26,24 @@ const Page = () => {
     },
     validationSchema: SignupSchema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      loginUser(values)
     },
   });
+  const loginUser = async (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    const response = await fetch('http://localhost:8000/login', requestOptions);
+    const data = await response.json();
+    if(response.status == '200'){
+      toast.success(data.message);
+      router.push('/')
+    }else{
+      toast.error(data.message);
+    }
+  }
 
   return (
     <div className="flex items-center justify-center h-screen w-full bg-slate-200 shadow-lg">

@@ -5,6 +5,7 @@ import { NextUIProvider} from "@nextui-org/react";
 import Navbar from "./components/Navbar/page";
 import Footer from "./components/footer/page";
 import ReduxProvider from "@/redux/ReduxProvider";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -23,7 +24,10 @@ export default function RootLayout({ children }) {
           <ReduxProvider>
         
         {children}
-        
+        <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
         </ReduxProvider>
         </NextUIProvider>
       </body>

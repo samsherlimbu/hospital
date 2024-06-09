@@ -4,9 +4,8 @@ import Link from 'next/link';
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleUserIcon,setShowDropdown, hideDropdown } from '@/redux/reducerSlices/navbarSlice';
+import { toggleUserIcon, setLoggedIn, setShowDropdown, hideDropdown } from '@/redux/reducerSlices/navbarSlice';
 import Service from '../service/page';
- 
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -21,6 +20,15 @@ const Navbar = () => {
 
   const handleMouseLeave = () => {
     dispatch(hideDropdown());
+  };
+
+  const handleUserIconClick = () => {
+    dispatch(toggleUserIcon());
+  };
+
+  const handleSignOut = () => {
+    dispatch(setLoggedIn(false)); // Set the login state to false
+    dispatch(toggleUserIcon()); // Close the user icon menu
   };
 
   return (
@@ -53,13 +61,6 @@ const Navbar = () => {
                     onMouseEnter={() => handleMouseEnter('service')}
                     onMouseLeave={handleMouseLeave}
                   >
-                    {/* <ul className="p-2">
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Cardiology">Cardiology</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Dermatology">Dermatology</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Gastroenterology">Gastroenterology</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Neurology">Neurology</Link></li>
-                      <li className="p-2 hover:bg-gray-200"><Link href="/pages/Service/Oncology">Oncology</Link></li>
-                    </ul> */}
                     <Service/>
                   </div>
                 )}
@@ -92,27 +93,27 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <User className='text-white h-6 w-6 ml-5 cursor-pointer' onClick={() => dispatch(toggleUserIcon())} />
+                <User className='text-white h-6 w-6 ml-5 cursor-pointer' onClick={handleUserIconClick} />
                 {userIconClicked && (
-                  isLoggedIn ? (
-                    <button 
-                      className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
-                      onClick={() => { 
-                        dispatch(toggleUserIcon());
-                      }}
-                    >
-                      <Link href='/pages/login'>Sign In</Link>
-                    </button>
-                  ) : (
-                    <Link href='/pages/login'>
+                  <div className="absolute top-12 right-0 z-50">
+                    {isLoggedIn ? (
                       <button 
-                        className="bg-blue-500 text-white rounded-md px-4 py-2 absolute top-12 right-0 z-50"
-                        onClick={() => dispatch(toggleUserIcon())}
+                        className="bg-gray-500 text-white rounded-md px-4 py-2"
+                        onClick={handleSignOut}
                       >
-                        Sign In
+                        Sign Out
                       </button>
-                    </Link>
-                  )
+                    ) : (
+                      <Link href='/pages/login'>
+                        <button 
+                          className="bg-gray-500 text-white rounded-md px-4 py-2"
+                          onClick={handleUserIconClick}
+                        >
+                          Sign In
+                        </button>
+                      </Link>
+                    )}
+                  </div>
                 )}
               </li>
             </ul>
