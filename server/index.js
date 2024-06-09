@@ -17,15 +17,15 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   fullName: { type: String, required: true },
-  address: { type: String, required: true },
-  gender: { type: String, required: true },
-  phoneNumber: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  status: { type: String, required: true },
-  terms: { type: Boolean, required: true },
-  confirmPassword: { type: String, required: true },
+  phoneNumber: { type: String, required: true, unique: true },
+  gender: { type: String, required: true },
   bloodGroup: { type: String, required: true },
+  status: { type: String, required: true },
+  address: { type: String, required: true },
+  date: { type: Date, required: true },
+  terms: { type: Boolean, required: true },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -42,16 +42,16 @@ app.post('/register', async (req, res) => {
     const emailUserExists = await User.exists({ email: req.body.email });
 
     if (phoneNumberUserExists) {
-      return res.status(400).send({ message: 'phoneNumber number already exists' });
+      return res.status(409).json({ message: 'phoneNumber number already exists' });
     } else if (emailUserExists) {
-      return res.status(400).send({ message: 'Email already exists' });
+      return res.status(409).json({ message: 'Email already exists' });
     }
 
     await User.create(req.body);
-    return res.status(201).send({ message: 'User registration successful' });
+    return res.json({ message: 'User registration successful' });
   } catch (error) {
     console.error(error);
-    return res.status(500).send({ message: 'Internal Server Error' });
+    return res.status(500).send({ message: error.message });
   }
 });
 
@@ -65,27 +65,23 @@ app.get('/register', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
-  try {
-    console.log(req.body);
-    const user = await User.findOne({ phoneNumber: req.body.phoneNumber });
-    if (user) {
-      const match = await bcrypt.compare(req.body.password, user.password);
-      if (match) {
-        const token = jwt.sign({ phoneNumber: req.body.phoneNumber }, process.env.SECRET_KEY); // secret key from the .env
-        console.log(token);
-        return res.send({ message: 'Authorized', token });
-      } else {
-        return res.status(401).send({ message: 'Invalid password' });
-      }
-    } else {
-      return res.status(404).send({ message: 'phoneNumber not registered' });
+app.post('/login',async(req,res)=>{
+  console.log(req.body)
+  //STEP 1:
+  //check if phone number exist
+  const user  = await User.findOne({email: req.body.email})
+  if(user){
+  const isMatched=  await bcrypt.compare(req.body.password, user.password);
+    if(isMatched){
+      const token = jwt.sign({ email: req.body.email }, process.env.SECRET_KEY);
+      res.json({message: "Authorized", token,user})
+    }else {
+      res.status(401).json({message: "Invalid Password"})
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ message: 'Internal Server Error' });
+  }else{
+    res.status(401).json({message: "email not registered"})
   }
-});
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
