@@ -111,10 +111,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
@@ -178,26 +174,22 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 - [ ] 1. Authentication (LOGIN REGISTER) (password hashing, JWT, db save details)
 - [ ] 2. KYC (image upload)
-- [ ] 3. Admin approve KYC (wallet features unlock) (multi user login) (sidebar ->0. dashboard 1.  kyc validate (send email) 2. add institution )
-
-- [ ] 1. 100 balance  
-- [ ] 2. 4 sections: (multiple layout)
-    2.1 Dashboard (graph and reward point)
-        -  bar graph to display daily expenditure
-        -  expense tracker 
-    2.2 Transactions (limit) - usera-userb   usera-institution
-    2.3 Statement/History (pdf generate)
-- [ ] 3. real time cash update (web socket)
-- [ ] 4. map to display transaction location (google map)
+- [ ] 3. multi user login
+- [ ] 4. Add patient 
+- [ ] 5. Add Doctor
+- [ ] 6. Add admin
+- [ ] 7. Update content or meassage
+- [ ] 8. 
+- [ ] 9. 
 
 
 
 # phase-2
-- [x] 1. integrate esewa
-- [x] 2. google login
-- [x] 3. support
-- [x] 4. deployment
-- [x] 4. 
+- [ ] 1. google login
+- [ ] 2. 
+- [ ] 3. support
+- [ ] 4. deployment
+- [ ] 4. 
 
 ---- route protect------ 
 --- 

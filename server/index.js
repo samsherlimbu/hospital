@@ -83,6 +83,10 @@ app.post('/login',async(req,res)=>{
   }
 })
 
+app.post('/message',async(req,res)=>{
+console.log(hi);
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
