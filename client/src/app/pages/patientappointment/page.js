@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+export     const allPatients = [
+    { id: 1,Doctorsname:'indra', Patientsname: 'samsher', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0120',  },
+    { id: 2,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0121',  },
+    { id: 3,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0122',  },
+    { id: 4,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0123',  },
+    { id: 5,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0124',  },
+    { id: 6,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0125',  },
+    { id: 7,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0126',  },
+    { id: 8,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0127',  },
+    { id: 9,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0128',  },
+];
+
 
 const PatientAppointment = () => {
-    const allPatients = [
-        { id: 1,Doctorsname:'indra', Patientsname: 'samsher', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0120',  },
-        { id: 2,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0121',  },
-        { id: 3,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0122',  },
-        { id: 4,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0123',  },
-        { id: 5,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0124',  },
-        { id: 6,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0125',  },
-        { id: 7,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0126',  },
-        { id: 8,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0127',  },
-        { id: 9,Doctorsname:'indra', Patientsname: 'Unknown', AppointmentDate: 'Patients@ambitiousit.com', AppointmentTime: '(406) 555-0128',  },
-    ];
 
     const [Patients, setPatients] = useState(allPatients);
     const [currentPage, setCurrentPage] = useState(1);

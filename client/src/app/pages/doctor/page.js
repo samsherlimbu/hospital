@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+export const allDoctors = [
+    { id: 1, name: 'samsher', email: 'doctor@ambitiousit.com', phone: '(406) 555-0120', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 2, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0121', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 3, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0122', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 4, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0123', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 5, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0124', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 6, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0125', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 7, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0126', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 8, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0127', department: 'Outpatient department (OPD)', status: 'Active' },
+    { id: 9, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0128', department: 'Outpatient department (OPD)', status: 'Active' },
+];
 
 const DoctorTable = () => {
-    const allDoctors = [
-        { id: 1, name: 'samsher', email: 'doctor@ambitiousit.com', phone: '(406) 555-0120', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 2, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0121', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 3, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0122', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 4, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0123', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 5, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0124', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 6, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0125', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 7, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0126', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 8, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0127', department: 'Outpatient department (OPD)', status: 'Active' },
-        { id: 9, name: 'Unknown', email: 'doctor@ambitiousit.com', phone: '(406) 555-0128', department: 'Outpatient department (OPD)', status: 'Active' },
-    ];
-
+   
     const [doctors, setDoctors] = useState(allDoctors);
     const [currentPage, setCurrentPage] = useState(1);
     const [doctorsPerPage] = useState(5);

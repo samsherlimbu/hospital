@@ -25,12 +25,7 @@ const Navbar = () => {
   const handleUserIconClick = () => {
     dispatch(toggleUserIcon());
   };
-
-  const handleSignOut = () => {
-    dispatch(setLoggedIn(false)); // Set the login state to false
-    dispatch(toggleUserIcon()); // Close the user icon menu
-  };
-
+  
   return (
     <>
       <div className='w-full bg-gray-400 h-[80px] z-50'>

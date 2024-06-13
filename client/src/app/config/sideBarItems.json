@@ -1,0 +1,12 @@
+{
+    "admin":[
+        {"id":1, "name":"Dashboard","link":"/dashboard"},
+        {"id":2, "name":"Patient","link":"/patient"},
+        {"id":3, "name":"Doctor","link":"/Doctor"},
+        {"id":4, "name":"DoctorSchedule","link":"/DoctorSchedule"},
+        {"id":5 , "name":"PatientAppointment","link":"/PatientAppointment"},
+        {"id":6, "name":"PatientCaseStudies","link":"/PatientCaseStudies"},
+        {"id":7, "name":"Prescription","link":"/prescription"},
+        {"id":8 , "name":"Message","link":"/message"}
+    ]
+}

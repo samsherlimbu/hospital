@@ -1,5 +1,4 @@
 import React from 'react'
-import { allDoctors } from '../doctor/page'
 
 const siderbar=[
     'Department',"Doctor","patient","Patient Appointment","Patient Case Studies","Prescription"
@@ -12,7 +11,7 @@ const AdminDashboard = () => {
      <div className="flex h-[80px] w-[250px] space-x-4 rounded-xl bg-white px-3 shadow-lg justify-between items-center mb-9">
      <div>
        <p className="text-gray-500">{sider}</p>
-       <p className="text-2xl font-bold">{sider === 'Doctor' ? allDoctors.length : 0}</p>
+       <p className="text-2xl font-bold">{siderbar.length}</p>
      </div>
      <div>icon</div> 
    </div>
