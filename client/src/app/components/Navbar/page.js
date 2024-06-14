@@ -47,8 +47,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/Contact">
-                  <p className={`hover:text-black ${isActive('/Contact') ? 'text-black' : ''}`}>Contact</p>
+                <Link href="/components/contact">
+                  <p className={`hover:text-black ${isActive('/components/contact') ? 'text-black' : ''}`}>Contact</p>
                 </Link>
               </li>
               <li 
