@@ -7,10 +7,21 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { setLoginDetails } from "@/redux/reducerSlices/navbarSlice";
+import { useDispatch } from "react-redux";
+
 
 
 const Page = () => {
+
   const router = useRouter();
+  const dispatch = useDispatch();
+  
+  const handleSignIn = () => {
+    dispatch(setLoginDetails({ user: {}, token: "" }));
+  }
+  
+
   const SignupSchema = Yup.object().shape({
     password: Yup.string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
@@ -104,6 +115,7 @@ const Page = () => {
           <div className="flex items-center justify-center mb-4">
             <button
               type="submit"
+              onClick={handleSignIn}
               className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg h-10 transition-colors duration-200"
             >
               Sign in

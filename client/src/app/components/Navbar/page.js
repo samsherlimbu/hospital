@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleUserIcon, setLoginDetails, setShowDropdown, hideDropdown,logoutUser } from '@/redux/reducerSlices/navbarSlice';
+import { toggleUserIcon,  setShowDropdown, hideDropdown,logoutUser } from '@/redux/reducerSlices/navbarSlice';
 import Service from '../service/page';
 
 const Navbar = () => {
@@ -30,9 +30,6 @@ const Navbar = () => {
     // Logic for signing out, e.g., clearing tokens, updating state, etc.
     dispatch(logoutUser());
   };
-  const handleSignIn = () => {
-    dispatch(setLoginDetails({ user: {}, token: "" }));
-  }
   
   return (
     <>
@@ -110,7 +107,7 @@ const Navbar = () => {
                       <Link href='/pages/login'>
                         <button 
                           className="bg-gray-500 text-white rounded-md px-4 py-2"
-                          onClick={handleSignIn}
+                          
                         >
                           Sign In
                         </button>

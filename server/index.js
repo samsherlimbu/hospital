@@ -1,23 +1,25 @@
+// server/index.js
 const express = require('express');
+const cors = require('cors');
 const dbConnect = require('./src/db/connection');
 const userRoute = require('./src/routes/user');
-const cors = require('cors');
+const messageRoute = require('./src/routes/message');
+require('dotenv').config();
 
+// Connect to the database
 dbConnect();
+
 const app = express();
 
 app.use(cors());
-require('dotenv').config();
-//body parser
+// body parser
 app.use(express.json());
-app.use(userRoute)
 
-
-
+app.use(userRoute);
+app.use(messageRoute);
 
 const port = process.env.PORT;
 
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
