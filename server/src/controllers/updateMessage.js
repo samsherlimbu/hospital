@@ -11,5 +11,13 @@ const updateMessage = async (req, res) => {
     res.status(500).json({ msg: 'Error saving message' });
   }
 };
+const getMessage = async (req, res) => {
+  try{
+    const messages = await Message.find();
+    res.status(200).json({ msg: 'Message saved successfully', data: messages });
+  }catch (error) {
+    res.status(500).json({ msg: 'Error saving message' });
+  }
+}
 
-module.exports = updateMessage;
+module.exports = {updateMessage,getMessage};

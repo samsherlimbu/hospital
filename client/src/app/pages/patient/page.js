@@ -41,7 +41,7 @@ const Patient = () => {
         patient.phone.includes(filters.phone)
       )
     );
-    dispatch(setPage(1)); // Reset to the first page after filtering
+    dispatch(setPage(1)); 
   };
 
  
