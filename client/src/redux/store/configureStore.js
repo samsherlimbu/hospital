@@ -7,6 +7,7 @@ import counterSlice from '../reducerSlices/counterSlice';
 import boxSlice from '../reducerSlices/boxSlice';
 import formSlice from '../reducerSlices/formSlice';
 import navbarSlice from '../reducerSlices/navbarSlice';
+import doctorSlice from '../reducerSlices/doctorSlice';
 
 
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   box: boxSlice,
   form:formSlice,
   navbar:navbarSlice,
+  doctor:doctorSlice,
   
 });
 

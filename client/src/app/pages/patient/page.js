@@ -20,7 +20,7 @@ const Patient = () => {
     filterVisible,
     showAddPatientForm,
     currentPage,
-    filters = { name: '', email: '', phone: '' },
+    filters = { fullName: '', email: '', phoneNumber: '' },
     patients,
     allPatients
   } = useSelector((state) => state.form);
@@ -30,6 +30,8 @@ const Patient = () => {
   useEffect(() => {
    fetchAllpatients()
   }, [dispatch]);
+
+  console.log(patients)
 
 
   const fetchAllpatients = async(req,res)=>{
