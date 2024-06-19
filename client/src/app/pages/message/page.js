@@ -19,17 +19,18 @@ const Message = () => {
   }, []);
 
   return (
-    <div className='bg-gray-400 w-full min-h-screen p-4 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-4'>
+    <div className='bg-gray-400 w-full min-h-screen p-2 grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-4'>
       <div className='flex flex-col justify-center bg-transparent rounded-lg shadow-lg'>
+        <h1 className='flex flex-col items-center font-bold text-4xl bg-slate-300 shadow-lg rounded-lg p-4 mb-3'>MESSAGE FROM HOSPITAL TEAM </h1>
         {messages.length > 0 ? (
           messages.map((message, index) => (
-            <div key={index} className='flex flex-col items-center mt-4 p-20 font-semibold'>
+            <div key={index} className='flex flex-col items-center mt-2 p-20 font-semibold bg-slate-300 shadow-xl rounded-lg'>
               
              
-                <p className='text-sm'>{message.message}</p>
+                <p className='text-sm mb-1'>{message.message}</p>
               
               
-                <p className='text-2xl font-bold'>{message.name}</p>
+                <p className='text-2xl font-bold mb-2'>{message.name}</p>
                 <p className='text-sm'>{message.messageFrom}</p>
               
             </div>

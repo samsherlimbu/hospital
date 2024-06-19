@@ -32,7 +32,7 @@ const ImageSlider=()=> {
         {images.map((src, index) => (
           <div key={index} className="min-w-full h-80 relative">
             <img src={src} alt={`Slide ${index}`} className="w-full h-full object-cover" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center bg-gray-500 bg-opacity-50 p-4 rounded">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-center bg-green-200 bg-opacity-50 p-4 rounded">
               <h2 className="text-2xl font-bold">KANTIPUR</h2>
               <p className="text-lg">International Hospital</p>
               <p className="text-sm">A hospital may be a place of illness, but it's also a place of healing, hope, and humanity</p>

@@ -46,9 +46,14 @@ const registerUser = async (req, res) => {
   }
 
 
-  const findAllUser = async(req,res)=>{
-    const data = await User.find()
-    res.json(data)
-  }
+  const findAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        return res.json(users);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: error.message });
+    }
+};
 
-  module.exports = {findAllUser,registerUser,loginUser}
+  module.exports = {findAllUsers,registerUser,loginUser}

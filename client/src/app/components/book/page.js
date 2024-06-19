@@ -8,7 +8,7 @@ const Book = () => {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="bg-gray-400 hover:bg-slate-300 h-[90px] flex justify-center items-center mt-2 rounded-lg shadow-lg">
+    <div className="bg-gray-200 hover:bg-gray-400 h-[90px] flex justify-center items-center mt-2 rounded-lg shadow-lg">
       <Link href="/pages/Appointment">
         <p
           className={`text-black hover:text-black ${

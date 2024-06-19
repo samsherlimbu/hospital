@@ -15,11 +15,11 @@ const departments = [
 
 const Department = () => {
   return (
-    <div className='mx-auto p-10 bg-slate-200 w-full rounded-sm '>
+    <div className='mx-auto p-10 bg-gray-200 w-full rounded-sm '>
       <div className='text-3xl font-bold text-center mb-11 mt-3'>
-        <h1>Clinical Departments of Kantipur Hospital</h1>
+        <h1> Departments of Kantipur Hospital</h1>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 '>
         {departments.map((item) => (
           <DepartmentCard key={item.id} item={item} />
         ))}
