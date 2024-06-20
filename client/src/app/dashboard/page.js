@@ -4,29 +4,28 @@ import React, { useState } from 'react';
 import AdminDashboard from '../pages/AdminDashboard/page';
 import DoctorTable from '../pages/doctor/page';
 import Patient from '../pages/patient/page';
-import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt,  FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
 import DoctorSchedule from '../pages/doctorschedule/page';
 import PatientAppointment from '../pages/patientappointment/page';
 import PatientCaseStudies from '../pages/casestudies/page';
 import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
-
-
-
+import DepartmentTable from '../components/departmenttable/page';
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
 
   const sections = [
-    { id: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
-    { id: 'doctor', label: 'Doctor', icon: <FaUserMd /> },
-    { id: 'patient', label: 'Patient', icon: <FaUser /> },
-    { id: 'doctor-schedule', label: 'Doctor Schedule', icon: <FaCalendarAlt /> },
-    { id: 'patient-appointment', label: 'Patient Appointment', icon: <FaNotesMedical /> },
-    { id: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
-    { id: 'prescription', label: 'Prescription', icon: <FaPrescriptionBottle /> },
-    {id:'Message', label: 'Message', icon: <FaRegMessage />}
+    { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
+    { name: 'doctor', label: 'Doctor', icon: <FaUserMd /> },
+    { name: 'patient', label: 'Patient', icon: <FaUser /> },
+    { name: 'doctor-schedule', label: 'Doctor Schedule', icon: <FaCalendarAlt /> },
+    { name: 'patient-appointment', label: 'Patient Appointment', icon: <FaNotesMedical /> },
+    { name: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
+    { name: 'prescription', label: 'Prescription', icon: <FaPrescriptionBottle /> },
+    { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
+    { name: 'department', label: 'Department' }
   ];
 
   const renderContent = () => {
@@ -38,51 +37,53 @@ const Dashboard = () => {
       case 'patient':
         return <Patient />;
       case 'doctor-schedule':
-        return <div><DoctorSchedule/></div>;
+        return <DoctorSchedule />;
       case 'patient-appointment':
-        return <div><PatientAppointment/></div>;
+        return <PatientAppointment />;
       case 'patient-case-studies':
-        return <div><PatientCaseStudies/></div>;
+        return <PatientCaseStudies />;
       case 'prescription':
-        return <div><Prescription/></div>;
-        case 'Message':
-        return <div><Content/></div>;
+        return <Prescription />;
+      case 'Message':
+        return <Content />;
+      case 'department':
+        return <DepartmentTable />;
       default:
         return <div>Dashboard Content</div>;
     }
   };
 
-  const setSection = (sectionId) => {
-    setActiveSection(sectionId);
+  const setSection = (sectionname) => {
+    setActiveSection(sectionname);
   };
 
   return (
     <div className="h-screen w-full bg-slate-50 grid grid-cols-12">
       <div className='col-span-3 bg-white p-4'>
-       <div className=" bg-gray-300  overflow-y-auto h-full  rounded-lg shadow-lg">
-        <div className="flex flex-col items-center py-6">
-          <div>image or logo</div>
-          <h2 className="text-lg font-semibold">Super Admin</h2>
+        <div className="bg-gray-300 overflow-y-auto h-full rounded-lg shadow-lg">
+          <div className="flex flex-col items-center py-6">
+            <div>image or logo</div>
+            <h2 className="text-lg font-semibold">Super Admin</h2>
+          </div>
+          <div className="flex flex-col mt-4 space-y-2">
+            {sections.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => setSection(item.name)}
+                className={`flex items-center p-4 cursor-pointer hover:bg-green-400 ${
+                  activeSection === item.name ? 'bg-green-400 text-white' : ''
+                }`}
+              >
+                <span className="mr-2">{item.icon}</span>
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-auto flex items-center p-4 cursor-pointer hover:bg-gray-100" onClick={() => alert('Logged out')}>
+            <FaSignOutAlt className="mr-2" />
+            <span>Log Out</span>
+          </div>
         </div>
-        <div className="flex flex-col mt-4 space-y-2">
-          {sections.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => setSection(item.id)}
-              className={`flex items-center p-4 cursor-pointer hover:bg-green-400 ${
-                activeSection === item.id ? 'bg-green-400 text-white' : ''
-              }`}
-            >
-              <span className="mr-2">{item.icon}</span>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-auto flex items-center p-4 cursor-pointer hover:bg-gray-100" onClick={() => alert('Logged out')}>
-          <FaSignOutAlt className="mr-2" />
-          <span>Log Out</span>
-        </div>
-      </div>
       </div>
       <div className="col-span-9 bg-slate-100 p-4 overflow-y-auto">
         <div className="flex items-center justify-between w-full rounded-lg bg-white mx-auto px-44 h-[120px]">
@@ -107,9 +108,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// {
-//   actu ==== "device" && <></>
-//   actu ==== "device" && <></>
-//   actu ==== "device" && <></>
-// 
