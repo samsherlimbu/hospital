@@ -28,4 +28,14 @@ const getAlldoctors = async (req, res) => {
   }
 };
 
-module.exports = { doctoruser, getAlldoctors };
+const getDoctorsDetails = async (req, res) => {
+  try {
+    const doctors = await Doctor.find({ department: req.params.id });
+    res.status(200).json(doctors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Server error' });
+  }
+};
+
+module.exports = { doctoruser, getAlldoctors, getDoctorsDetails };
