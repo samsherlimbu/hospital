@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AddDepartment from '../adddepartment/page';
+import axios from 'axios';
 
 const DepartmentTable = () => {
   const [departments, setDepartments] = useState([]);
@@ -10,7 +11,7 @@ const DepartmentTable = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await fetch('http://localhost:8000/departmentlist');
+      const response = await axios.get('http://localhost:8000/departmentlist');
       const data = await response.json();
       setDepartments(data);
       console.log(data);
