@@ -47,7 +47,7 @@ const AddDoctorForm = ({ onCancel }) => {
     const data = await response.json();
     if (response.ok) {
       toast.success(data.message);
-      router.push("/pages/doctor");
+      router.push("/dashboard");
     } else {
       toast.error(data.message);
     }

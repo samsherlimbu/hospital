@@ -12,9 +12,8 @@ const DepartmentTable = () => {
   const fetchDepartment = async () => {
     try {
       const response = await axios.get('http://localhost:8000/departmentlist');
-      const data = await response.json();
-      setDepartments(data);
-      console.log(data);
+      setDepartments(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching departments:', error);
     }
