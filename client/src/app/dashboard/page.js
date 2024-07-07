@@ -59,8 +59,8 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-full bg-slate-50 grid grid-cols-12">
-      <div className='col-span-3 bg-white p-4'>
-        <div className="bg-gray-300 overflow-y-auto h-full rounded-lg shadow-lg">
+      <div className="col-span-3 bg-white p-4">
+        <div className="bg-gray-300 h-screen fixed top-0 left-0 overflow-y-auto items-center ml-5 w-[23%] rounded-lg mt-4">
           <div className="flex flex-col items-center py-6">
             <div>image or logo</div>
             <h2 className="text-lg font-semibold">Super Admin</h2>
