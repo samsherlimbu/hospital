@@ -12,7 +12,7 @@ import PatientCaseStudies from '../pages/casestudies/page';
 import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
 import DepartmentTable from '../components/departmenttable/page';
-import Image from '../pages/image/page';
+import Details from '../pages/doctordetails/page';
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -27,7 +27,8 @@ const Dashboard = () => {
     { name: 'prescription', label: 'Prescription', icon: <FaPrescriptionBottle /> },
     { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
     { name: 'department', label: 'Department' },
-    { name: 'Image', label: 'Image' }
+    
+    {name:'Doctor', label: 'DoctorDetails'},
   ];
 
   const renderContent = () => {
@@ -48,10 +49,11 @@ const Dashboard = () => {
         return <Prescription />;
       case 'Message':
         return <Content />;
-        case 'Image':
-        return <Image />;
+      
       case 'department':
         return <DepartmentTable />;
+        case 'Doctor':
+        return <Details/>;
       default:
         return <div>Dashboard Content</div>;
     }
