@@ -1,7 +1,7 @@
 'use client'
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setSection } from '@/redux/reducerSlices/dashboardSlice'; // Adjust the path as needed
+import React, { useState } from 'react';
+import { Button } from '@nextui-org/react';
+import { useSelector } from 'react-redux';
 import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
 import AdminDashboard from '../pages/AdminDashboard/page';
@@ -14,11 +14,11 @@ import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
 import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
-import { Button } from '@nextui-org/react';
+
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  const activeSection = useSelector((state) => state.dashboard?.activeSection || 'dashboard'); // Use fallback
+  const [activeSection, setActiveSection] = useState('dashboard');
+  
 
   const sections = [
     { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
@@ -60,8 +60,8 @@ const Dashboard = () => {
     }
   };
 
-  const handleSectionClick = (sectionName) => {
-    dispatch(setSection(sectionName));
+  const setSection = (sectionname) => {
+    setActiveSection(sectionname);
   };
 
   return (
@@ -76,7 +76,7 @@ const Dashboard = () => {
             {sections.map((item, index) => (
               <div
                 key={index}
-                onClick={() => handleSectionClick(item.name)}
+                onClick={() => setSection(item.name)}
                 className={`flex items-center p-4 cursor-pointer hover:bg-green-400 ${
                   activeSection === item.name ? 'bg-green-400 text-white' : ''
                 }`}
