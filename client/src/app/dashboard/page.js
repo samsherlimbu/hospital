@@ -1,11 +1,12 @@
-'use client';
-import { Button } from '@nextui-org/react';
-import React, { useState } from 'react';
+'use client'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSection } from '@/redux/reducerSlices/dashboardSlice'; // Adjust the path as needed
+import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaRegMessage } from "react-icons/fa6";
 import AdminDashboard from '../pages/AdminDashboard/page';
 import DoctorTable from '../pages/doctor/page';
 import Patient from '../pages/patient/page';
-import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { FaRegMessage } from "react-icons/fa6";
 import DoctorSchedule from '../pages/doctorschedule/page';
 import PatientAppointment from '../pages/patientappointment/page';
 import PatientCaseStudies from '../pages/casestudies/page';
@@ -13,9 +14,11 @@ import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
 import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
+import { Button } from '@nextui-org/react';
 
 const Dashboard = () => {
-  const [activeSection, setActiveSection] = useState('dashboard');
+  const dispatch = useDispatch();
+  const activeSection = useSelector((state) => state.dashboard?.activeSection || 'dashboard'); // Use fallback
 
   const sections = [
     { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
@@ -26,9 +29,8 @@ const Dashboard = () => {
     { name: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
     { name: 'prescription', label: 'Prescription', icon: <FaPrescriptionBottle /> },
     { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
-    { name: 'department', label: 'Department' },
-    
-    {name:'Doctor', label: 'DoctorDetails'},
+    { name: 'department', label: 'Department', icon: <FaUserMd /> },
+    { name: 'Doctor', label: 'DoctorDetails', icon: <FaUserMd /> },
   ];
 
   const renderContent = () => {
@@ -49,18 +51,17 @@ const Dashboard = () => {
         return <Prescription />;
       case 'Message':
         return <Content />;
-      
       case 'department':
         return <DepartmentTable />;
-        case 'Doctor':
-        return <Details/>;
+      case 'Doctor':
+        return <Details />;
       default:
         return <div>Dashboard Content</div>;
     }
   };
 
-  const setSection = (sectionname) => {
-    setActiveSection(sectionname);
+  const handleSectionClick = (sectionName) => {
+    dispatch(setSection(sectionName));
   };
 
   return (
@@ -75,7 +76,7 @@ const Dashboard = () => {
             {sections.map((item, index) => (
               <div
                 key={index}
-                onClick={() => setSection(item.name)}
+                onClick={() => handleSectionClick(item.name)}
                 className={`flex items-center p-4 cursor-pointer hover:bg-green-400 ${
                   activeSection === item.name ? 'bg-green-400 text-white' : ''
                 }`}

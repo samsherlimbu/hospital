@@ -8,6 +8,8 @@ import boxSlice from '../reducerSlices/boxSlice';
 import formSlice from '../reducerSlices/formSlice';
 import navbarSlice from '../reducerSlices/navbarSlice';
 import doctorSlice from '../reducerSlices/doctorSlice';
+import Dashboard from '@/app/dashboard/page';
+import dashboardSlice from '../reducerSlices/dashboardSlice';
 
 
 
@@ -22,6 +24,7 @@ const rootReducer = combineReducers({
   form:formSlice,
   navbar:navbarSlice,
   doctor:doctorSlice,
+  Dashboard:dashboardSlice,
   
 });
 
