@@ -1,54 +1,45 @@
-'use client'
+'use client';
 import React, { useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import AddDoctorForm from "../adddoctor/page";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  toggleAddDoctorForm,
   toggleFilterVisibility,
   setPage,
   setFilters,
-  setDoctors, // Adjusted import from setPatients to setDoctors
-  setAllDoctors, // Adjusted import from setAllPatients to setAllDoctors
-  applyFilters,
-  toggleAddDoctorForm
+  setDoctors,
+  applyFilters
 } from "@/redux/reducerSlices/doctorSlice";
 import axios from "axios";
 
-
-
-const Patient = () => {
+const Doctor = () => {
   const dispatch = useDispatch();
   const {
     filterVisible,
     showAddDoctorForm,
     currentPage,
     filters = { fullName: '', email: '', phoneNumber: '' },
-    doctors, // Changed from patients to doctors
-    allDoctors // Changed from allPatients to allDoctors
-  } = useSelector((state) => state.doctor); // Changed from state.form to state.doctor
+    doctors = [],  // Initialize as an empty array if undefined
+  } = useSelector((state) => state.doctor);
 
   useEffect(() => {
-    fetchAllDoctors(); // Changed from fetchAllPatients to fetchAllDoctors
+    fetchAlldoctors();
   }, [dispatch]);
 
-  const fetchAllDoctors = async () => { // Removed req, res parameters
+  const fetchAlldoctors = async () => {
     try {
-      const { data } = await axios.get('http://localhost:8000/usersdoctor'); // Adjusted endpoint URL
-      dispatch(setAllDoctors(data));
+      const { data } = await axios.get('http://localhost:8000/usersdoctor');
       dispatch(setDoctors(data));
     } catch (error) {
-      console.error('Error fetching doctors:', error);
+      console.error("Error fetching doctors:", error);
     }
   };
 
-
-
-  console.log(doctors , "doctors");
-
-  const doctorsPerPage = 5; // Changed from patientsPerPage to doctorsPerPage
-  const indexOfLastDoctor = currentPage * doctorsPerPage; // Changed from indexOfLastPatient to indexOfLastDoctor
-  const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage; // Changed from indexOfFirstPatient to indexOfFirstDoctor
-  const currentDoctors = doctors.slice(indexOfFirstDoctor, indexOfLastDoctor); // Changed from currentPatients to currentDoctors
+  const doctorsPerPage = 5;
+  const indexOfLastDoctor = currentPage * doctorsPerPage;
+  const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
+  const currentDoctors = doctors.slice(indexOfFirstDoctor, indexOfLastDoctor);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,36 +81,36 @@ const Patient = () => {
           {filterVisible && (
             <div className="flex justify-between mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Name</label> {/* Corrected label */}
+                <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
                   name="fullName"
-                  placeholder="Patient name"
+                  placeholder="Your name"
                   className="px-4 py-2 border rounded w-full"
                   onChange={handleInputChange}
                   value={filters.fullName}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label> {/* Corrected label */}
+                <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="text"
                   name="email"
-                  placeholder="Patient email"
+                  placeholder="Your email"
                   className="px-4 py-2 border rounded w-full"
                   onChange={handleInputChange}
                   value={filters.email}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Phone</label> {/* Corrected label */}
+                <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
                   type="text"
-                  name="phoneNumber" // Changed from phone to phoneNumber
-                  placeholder="Patient phone"
+                  name="phone"
+                  placeholder="Your number"
                   className="px-4 py-2 border rounded w-full"
                   onChange={handleInputChange}
-                  value={filters.phoneNumber} // Changed from phone to phoneNumber
+                  value={filters.phone}
                 />
               </div>
               <div className="flex items-end">
@@ -135,11 +126,11 @@ const Patient = () => {
           <table className="min-w-full bg-white border">
             <thead className="bg-slate-400">
               <tr>
-                <th className="py-2 px-4 border-b">Name <span>↑↓</span></th> {/* Adjusted table header */}
+                <th className="py-2 px-4 border-b">Full Name <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Email <span>↑↓</span></th>
-                <th className="py-2 px-4 border-b">Phone Number <span>↑↓</span></th> {/* Adjusted table header */}
-                <th className="py-2 px-4 border-b">Department <span>↑↓</span></th>
-                <th className="py-2 px-4 border-b">Address <span>↑↓</span></th> {/* Adjusted table header */}
+                <th className="py-2 px-4 border-b">Phone Number <span>↑↓</span></th>
+                <th className="py-2 px-4 border-b">Gender <span>↑↓</span></th>
+                <th className="py-2 px-4 border-b">Address <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
@@ -149,7 +140,7 @@ const Patient = () => {
                   <td className="py-2 px-4">{doctor.fullName}</td>
                   <td className="py-2 px-4">{doctor.email}</td>
                   <td className="py-2 px-4">{doctor.phoneNumber}</td>
-                  <td className="py-2 px-4">{doctor.department}</td>
+                  <td className="py-2 px-4">{doctor.gender}</td>
                   <td className="py-2 px-4">{doctor.address}</td>
                   <td className="flex p-4">
                     <span className="cursor-pointer space-y-2">
@@ -194,4 +185,4 @@ const Patient = () => {
   );
 };
 
-export default Patient;
+export default Doctor;

@@ -11,7 +11,7 @@ const initialState = {
     phoneNumber: ''
   },
   doctors: [],
-  allDoctors: []
+  // allDoctors: []
 };
 
 const doctorSlice = createSlice({
@@ -33,14 +33,14 @@ const doctorSlice = createSlice({
     setDoctors(state, action) {
       state.doctors = action.payload;
     },
-    setAllDoctors(state, action) {
-      state.allDoctors = action.payload;
-    },
+    // setAllDoctors(state, action) {
+    //   state.allDoctors = action.payload;
+    // },
     applyFilters(state) {
-        state.doctors = state.allDoctors.filter(patient =>
-          (patient.fullName.toLowerCase().includes((state.filters.fullName || '').toLowerCase()) &&
-          patient.email.toLowerCase().includes((state.filters.email || '').toLowerCase()) &&
-          (state.filters.phone ? patient.phoneNumber.includes(state.filters.phone) : true)
+        state.doctors = state.doctors.filter(doctors =>
+          (doctors.fullName.toLowerCase().includes((state.filters.fullName || '').toLowerCase()) &&
+          doctors.email.toLowerCase().includes((state.filters.email || '').toLowerCase()) &&
+          (state.filters.phone ? doctors.phoneNumber.includes(state.filters.phone) : true)
         ));
         state.currentPage = 1;
       }
@@ -54,7 +54,7 @@ export const {
   setPage,
   setFilters,
   setDoctors,
-  setAllDoctors,
+  // setAllDoctors,
   applyFilters
 } = doctorSlice.actions;
 

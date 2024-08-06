@@ -14,6 +14,7 @@ import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
 import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
+import Doctor from '../pages/doctor/page';
 
 
 const Dashboard = () => {
@@ -38,7 +39,7 @@ const Dashboard = () => {
       case 'dashboard':
         return <AdminDashboard />;
       case 'doctor':
-        return <DoctorTable />;
+        return <Doctor />;
       case 'patient':
         return <Patient />;
       case 'doctor-schedule':
