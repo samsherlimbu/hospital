@@ -1,6 +1,10 @@
 const Doctor = require('../models/doctor');
 
 const doctoruser = async (req, res) => {
+  req.body.doctorImage = req.file.filename
+
+  // console.log(req.body,req.file.filename)
+ 
   try {
     const phoneNumberUserExists = await Doctor.exists({ phoneNumber: req.body.phoneNumber });
     const emailUserExists = await Doctor.exists({ email: req.body.email });

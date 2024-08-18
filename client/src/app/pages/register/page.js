@@ -64,7 +64,7 @@ const Page = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
   };
-  const response = await fetch('http://localhost:8000/register', requestOptions);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}register`, requestOptions);
   const data = await response.json();
   if(response.status == '200'){
     toast.success(data.message);

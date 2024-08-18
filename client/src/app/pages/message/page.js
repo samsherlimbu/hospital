@@ -7,7 +7,7 @@ const Message = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch('http://localhost:8000/message');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}message`);
         const data = await res.json();
         setMessages(data.data); // Adjust to access the correct part of the response
       } catch (error) {

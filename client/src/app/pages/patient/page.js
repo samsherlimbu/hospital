@@ -35,7 +35,7 @@ const Patient = () => {
 
 
   const fetchAllpatients = async(req,res)=>{
-    const {data} = await axios.get('http://localhost:8000/users')
+    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}users`)
     dispatch(setAllPatients(data))
     dispatch(setPatients(data))
   }

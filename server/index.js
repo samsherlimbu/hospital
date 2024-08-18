@@ -5,7 +5,6 @@ const userRoute = require('./src/routes/user');
 const messageRoute = require('./src/routes/message');
 const doctorRoute = require('./src/routes/doctor');
 const departmentRoute = require('./src/routes/department');
-
 const detailsRoute = require('./src/routes/details');
 require('dotenv').config();
 

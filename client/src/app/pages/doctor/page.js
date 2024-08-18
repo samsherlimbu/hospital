@@ -29,7 +29,7 @@ const Doctor = () => {
 
   const fetchAlldoctors = async () => {
     try {
-      const { data } = await axios.get('http://localhost:8000/usersdoctor');
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor`);
       dispatch(setDoctors(data));
     } catch (error) {
       console.error("Error fetching doctors:", error);

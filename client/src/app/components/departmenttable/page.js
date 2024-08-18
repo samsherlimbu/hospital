@@ -11,7 +11,7 @@ const DepartmentTable = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/departmentlist');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}departmentlist`);
       setDepartments(response.data);
       console.log(response.data);
     } catch (error) {

@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-const genders = ["Male", "Female", "Other"];
-const statusOptions = ["Active", "Inactive"];
+// const genders = ["Male", "Female", "Other"];
+// const statusOptions = ["Active", "Inactive"];
 const doctors = [
   { name: "fullName", label: "Full Name" },
   { name: "email", label: "Email" },
@@ -16,6 +16,7 @@ const doctors = [
 ];
 
 const AddDoctorForm = ({ onCancel }) => {
+  const [image ,setImage]= useState(null)
   const router = useRouter();
 
   const registerSchema = Yup.object().shape({
@@ -28,20 +29,38 @@ const AddDoctorForm = ({ onCancel }) => {
       .matches(/^[0-9]+$/, "Phone number must be numeric")
       .min(10, "Phone number must be at least 10 digits")
       .required("Required"),
-    gender: Yup.string().oneOf(genders).required("Required"),
-    status: Yup.string().oneOf(statusOptions).required("Required"),
     address: Yup.string(),
     department: Yup.string().required("Required"),
   });
 
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      address: "",
+      department: "",
+    },
+    validationSchema: registerSchema,
+    onSubmit: (values) => {
+      console.log(values)
+      registerDoctor(values);
+    },
+  });
+
   const registerDoctor = async (values) => {
+    let formData = new FormData();
+    for (let item in values) {
+      formData.append(item, values[item]);
+    }
+    formData.append('doctorImage',image)
+
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: formData,
     };
     const response = await fetch(
-      "http://localhost:8000/registerdoctor",
+      `${process.env.NEXT_PUBLIC_API_URL}registerdoctor`,
       requestOptions
     );
     const data = await response.json();
@@ -53,21 +72,8 @@ const AddDoctorForm = ({ onCancel }) => {
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      email: "",
-      phoneNumber: "",
-      gender: "",
-      status: "",
-      address: "",
-      department: "",
-    },
-    validationSchema: registerSchema,
-    onSubmit: (values) => {
-      registerDoctor(values);
-    },
-  });
+ 
+
 
   return (
     <div className="flex items-center justify-center bg-gray-100 w-full h-full mt-0">
@@ -98,7 +104,7 @@ const AddDoctorForm = ({ onCancel }) => {
               </p>
             </div>
           ))}
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700">
               Gender <span className="text-red-500">*</span>
             </label>
@@ -120,8 +126,8 @@ const AddDoctorForm = ({ onCancel }) => {
             {formik.touched.gender && formik.errors.gender ? (
               <div className="text-red-500 text-sm">{formik.errors.gender}</div>
             ) : null}
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700">
               Status <span className="text-red-500">*</span>
             </label>
@@ -143,7 +149,14 @@ const AddDoctorForm = ({ onCancel }) => {
             {formik.touched.status && formik.errors.status ? (
               <div className="text-red-500 text-sm">{formik.errors.status}</div>
             ) : null}
-          </div>
+          </div> */}
+          <div className="mb-4">
+                    <input
+                        type="file"
+                         onChange={(e) => setImage(e.target.files[0])} // Logs the entire event object
+                        className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                    />
+                </div>
 
           <div className="flex justify-end space-x-2">
             <button

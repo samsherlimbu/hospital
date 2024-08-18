@@ -43,7 +43,7 @@ const Service = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await fetch('http://localhost:8000/usersdoctor');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor`);
       const data = await response.json();
 
       // Create a Set to store unique department names

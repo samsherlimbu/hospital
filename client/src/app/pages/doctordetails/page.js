@@ -43,7 +43,7 @@ const Details = () => {
         };
     
         try {
-            const response = await fetch('http://localhost:8000/doctordetails', requestOptions);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}doctordetails`, requestOptions);
             const data = await response.json();
             if (data.message) {
               toast(data.message)
