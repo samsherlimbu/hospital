@@ -6,6 +6,7 @@ const messageRoute = require('./src/routes/message');
 const doctorRoute = require('./src/routes/doctor');
 const departmentRoute = require('./src/routes/department');
 const detailsRoute = require('./src/routes/details');
+const path = require('path')
 require('dotenv').config();
 
 // Connect to the database
@@ -25,6 +26,8 @@ app.use(departmentRoute);
 app.use(detailsRoute);
 
 const port = process.env.PORT || 8000;
+
+app.use('/doctor-image', express.static(path.join(__dirname, '/uploads/image')))
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
