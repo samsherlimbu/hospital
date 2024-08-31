@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-// const genders = ["Male", "Female", "Other"];
-// const statusOptions = ["Active", "Inactive"];
 const doctors = [
   { name: "fullName", label: "Full Name" },
   { name: "email", label: "Email" },
@@ -16,7 +14,7 @@ const doctors = [
 ];
 
 const AddDoctorForm = ({ onCancel }) => {
-  const [image ,setImage]= useState(null)
+  const [image, setImage] = useState(null);
   const router = useRouter();
 
   const registerSchema = Yup.object().shape({
@@ -43,7 +41,7 @@ const AddDoctorForm = ({ onCancel }) => {
     },
     validationSchema: registerSchema,
     onSubmit: (values) => {
-      console.log(values)
+      console.log(values);
       registerDoctor(values);
     },
   });
@@ -53,7 +51,7 @@ const AddDoctorForm = ({ onCancel }) => {
     for (let item in values) {
       formData.append(item, values[item]);
     }
-    formData.append('doctorImage',image)
+    formData.append("doctorImage", image);
 
     const requestOptions = {
       method: "POST",
@@ -71,9 +69,6 @@ const AddDoctorForm = ({ onCancel }) => {
       toast.error(data.message);
     }
   };
-
- 
-
 
   return (
     <div className="flex items-center justify-center bg-gray-100 w-full h-full mt-0">
@@ -151,12 +146,12 @@ const AddDoctorForm = ({ onCancel }) => {
             ) : null}
           </div> */}
           <div className="mb-4">
-                    <input
-                        type="file"
-                         onChange={(e) => setImage(e.target.files[0])} // Logs the entire event object
-                        className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-                    />
-                </div>
+            <input
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])} // Logs the entire event object
+              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+            />
+          </div>
 
           <div className="flex justify-end space-x-2">
             <button

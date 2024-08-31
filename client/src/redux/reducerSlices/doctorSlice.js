@@ -8,7 +8,8 @@ const initialState = {
   filters: {
     fullName: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+
   },
   doctors: [],
   // allDoctors: []
@@ -43,6 +44,9 @@ const doctorSlice = createSlice({
           (state.filters.phone ? doctors.phoneNumber.includes(state.filters.phone) : true)
         ));
         state.currentPage = 1;
+      },
+      setDepartment(state, action) {
+        state.department = action.payload;
       }
       
   }
@@ -55,7 +59,8 @@ export const {
   setFilters,
   setDoctors,
   // setAllDoctors,
-  applyFilters
+  applyFilters,
+  setDepartment
 } = doctorSlice.actions;
 
 

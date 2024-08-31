@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
-import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
 import AdminDashboard from '../pages/AdminDashboard/page';
@@ -16,10 +16,9 @@ import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
 import Doctor from '../pages/doctor/page';
 
-
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
-  
+  const router = useRouter();
 
   const sections = [
     { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
@@ -65,6 +64,10 @@ const Dashboard = () => {
     setActiveSection(sectionname);
   };
 
+  const handleChatClick = () => {
+    router.push('/pages/chat');
+  };
+
   return (
     <div className="h-screen w-full bg-slate-50 grid grid-cols-12">
       <div className="col-span-3 bg-white p-4">
@@ -98,7 +101,7 @@ const Dashboard = () => {
           <p className="-ml-20">logo</p>
           <ul className="-mr-15">
             <li>
-              <Button className="bg-green-400 font-semibold h-[70px] w-[190px] text-2xl hover:bg-green-200">
+              <Button className="bg-green-400 font-semibold h-[70px] w-[190px] text-2xl hover:bg-green-200" onClick={handleChatClick}>
                 chat with us
               </Button>
             </li>

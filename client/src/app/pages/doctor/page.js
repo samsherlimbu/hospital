@@ -19,8 +19,9 @@ const Doctor = () => {
     filterVisible,
     showAddDoctorForm,
     currentPage,
-    filters = { fullName: '', email: '', phoneNumber: '' },
-    doctors = [],  // Initialize as an empty array if undefined
+    filters = { fullName: '', email: '', phoneNumber: ''},
+    doctors = [],
+      // Initialize as an empty array if undefined
   } = useSelector((state) => state.doctor);
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const Doctor = () => {
                   value={filters.email}
                 />
               </div>
+            
               <div>
                 <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
@@ -112,6 +114,7 @@ const Doctor = () => {
                   onChange={handleInputChange}
                   value={filters.phone}
                 />
+                
               </div>
               <div className="flex items-end">
                 <button
