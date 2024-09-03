@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const appointmentSchema = new Schema({
-    department:String,
-    doctorname: String,
-    patientname: String,
-    date: Date,
-    time: String,
-    status: { type: String, default: 'pending' },
-    doctorid: String,
-    patientid: String
+const AppointmentSchema = new Schema({
+    department: { type: String, required: true },
+    doctor: { type: String, required: true },
+    appointmentDate: { type: Date, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    number: { type: String, required: true },
+    age: { type: Number, required: true },
+    gender: { type: String, required: true },
+    status: { type: String, default: 'pending' },  // Default status is 'pending'
 })
+module.exports = mongoose.model('Appointment', AppointmentSchema);

@@ -8,10 +8,11 @@ const userSchema = new Schema({
   phoneNumber: { type: String, required: true, unique: true },
   gender: { type: String, required: true },
   bloodGroup: { type: String, required: true },
-  status: { type: String, required: true },
-  address: { type: String, required: true },
+  address: { type: String },
   date: { type: Date, required: true },
   terms: { type: Boolean, required: true },
+  isAdmin:{type:String, default:false}
 });
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;

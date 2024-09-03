@@ -1,3 +1,4 @@
+
 'use client';
 import React from "react";
 import Link from "next/link";
@@ -6,13 +7,12 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-
 const genders = ["Male", "Female", "Other"];
-const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB-"];
-const statusOptions = ["Patient"];
+const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB+"];
 
 const Page = () => {
   const router = useRouter();
+  
   const registerSchema = Yup.object().shape({
     fullName: Yup.string()
       .min(3, 'Too Short!')
@@ -26,15 +26,14 @@ const Page = () => {
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Required'),
     phoneNumber: Yup.string()
-      .matches(/^[0-9]+$/, "phoneNumber number must be numeric")
-      .min(10, 'phoneNumber number must be at least 10 digits')
+      .matches(/^[0-9]+$/, "Phone number must be numeric")
+      .min(10, 'Phone number must be at least 10 digits')
       .required('Required'),
     gender: Yup.string().oneOf(genders).required('Required'),
     bloodGroup: Yup.string().oneOf(bloodGroups).required('Required'),
-    status: Yup.string().oneOf(statusOptions).required('Required'),
     address: Yup.string(),
     date: Yup.date().required('Required'),
-    terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
+    terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
   });
 
   const formik = useFormik({
@@ -46,34 +45,32 @@ const Page = () => {
       phoneNumber: '',
       gender: '',
       bloodGroup: '',
-      status: '',
       address: '',
       date: '',
-      terms: false
+      terms: false,
     },
     validationSchema: registerSchema,
-    onSubmit: values => {
-      registerUser(values)
+    onSubmit: async (values) => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          toast.success(data.message);
+          router.push('/pages/login');
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error('An error occurred');
+      }
     }
   });
-
-  const registerUser = async (values) => {
-  
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
-  };
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}register`, requestOptions);
-  const data = await response.json();
-  if(response.status == '200'){
-    toast.success(data.message);
-    router.push('/pages/login');
-  }else{
-    toast.error(data.message);
-  }
- 
-  }
 
   return (
     <div className="flex flex-col items-center justify-center px-8 py-8 w-screen bg-gray-200">
@@ -162,14 +159,14 @@ const Page = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              phoneNumber <span className="text-red-500">*</span>
+              Phone Number <span className="text-red-500">*</span>
             </label>
             <input
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
               className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="phoneNumber"
+              placeholder="Phone Number"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -217,8 +214,8 @@ const Page = () => {
                 onBlur={formik.handleBlur}
               >
                 <option value="" label="Select blood group" />
-                {bloodGroups.map((item, index) => (
-                  <option value={item} key={index}>
+                {bloodGroups.map((item, id) => (
+                  <option value={item} key={id}>
                     {item}
                   </option>
                 ))}
@@ -233,129 +230,66 @@ const Page = () => {
             <label className="block text-sm font-medium text-gray-700">
               Address
             </label>
-            <textarea
+            <input
+              type="text"
               id="address"
               name="address"
-              rows="3"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="Address"
               value={formik.values.address}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-            ></textarea>
-            {formik.touched.address && formik.errors.address ? (
-              <div className="text-red-500 text-sm">{formik.errors.address}</div>
-            ) : null}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Date of Birth <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formik.values.date}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.date && formik.errors.date ? (
-                <div className="text-red-500 text-sm">{formik.errors.date}</div>
-              ) : null}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Role <span className="text-red-500">*</span>
-              </label>
-              <select
-                id="status"
-                name="status"
-                className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formik.values.status}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option value="" label="Select status" />
-                {statusOptions.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.status && formik.errors.status ? (
-                <div className="text-red-500 text-sm">{formik.errors.status}</div>
-              ) : null}
-            </div>
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Photo
+              Date of Birth <span className="text-red-500">*</span>
             </label>
-            <div className="mt-1 flex justify-center border-2 border-dashed border-gray-300 rounded-md py-6 px-6">
-              <div className="text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path d="M24 0v48M0 24h48" />
-                </svg>
-                <div className="flex text-sm text-gray-600 mt-2">
-                  <label
-                    htmlFor="file-upload"
-                    className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                  >
-                    <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                  </label>
-                  <p className="pl-1">or drag and drop</p>
-                </div>
-                <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-              </div>
-            </div>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              value={formik.values.date}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.date && formik.errors.date ? (
+              <div className="text-red-500 text-sm">{formik.errors.date}</div>
+            ) : null}
           </div>
 
           <div className="flex items-center">
             <input
+              type="checkbox"
               id="terms"
               name="terms"
-              type="checkbox"
               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              value={formik.values.terms}
+              checked={formik.values.terms}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
             />
             <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I accept the{" "}
-              <a className="text-indigo-600 hover:underline" href="#">
-                Terms and Conditions
-              </a>
+              I accept the <a href="#" className="text-indigo-600 hover:underline">terms and conditions</a>
               <span className="text-red-500">*</span>
             </label>
+            {formik.touched.terms && formik.errors.terms ? (
+              <div className="text-red-500 text-sm">{formik.errors.terms}</div>
+            ) : null}
           </div>
-          {formik.touched.terms && formik.errors.terms ? (
-            <div className="text-red-500 text-sm">{formik.errors.terms}</div>
-          ) : null}
 
           <button
             type="submit"
-            className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
-            Create an account
+            Register
           </button>
-          <p className="text-sm font-light text-gray-500">
-            Already have an account?{" "}
-            <Link href="/pages/login" className="font-medium text-indigo-600 hover:underline">
-              Login here
+          <div className="text-sm text-center text-gray-500">
+            Already have an account?{' '}
+            <Link href="/pages/login" className="text-blue-500 hover:underline">
+              Login
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>

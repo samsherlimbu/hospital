@@ -28,6 +28,7 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     // Logic for signing out, e.g., clearing tokens, updating state, etc.
+    localStorage.removeItem('user');
     dispatch(logoutUser());
   };
   

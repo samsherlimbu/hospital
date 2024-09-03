@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FaUserMd, FaClipboardList, FaNotesMedical, FaCalendarAlt, FaPrescriptionBottle, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
 import AdminDashboard from '../pages/AdminDashboard/page';
-import DoctorTable from '../pages/doctor/page';
+
 import Patient from '../pages/patient/page';
 import DoctorSchedule from '../pages/doctorschedule/page';
 import PatientAppointment from '../pages/patientappointment/page';
@@ -19,6 +19,8 @@ import Doctor from '../pages/doctor/page';
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
   const router = useRouter();
+
+  
 
   const sections = [
     { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
@@ -68,6 +70,19 @@ const Dashboard = () => {
     router.push('/pages/chat');
   };
 
+const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin
+
+
+console.log(isAdmin === false)
+
+  if(isAdmin === "false") {
+    return <>
+    <div className="flex items-center justify-between">
+      UNAUTHORIZED !!!
+    </div>
+    </>
+  }
+
   return (
     <div className="h-screen w-full bg-slate-50 grid grid-cols-12">
       <div className="col-span-3 bg-white p-4">
@@ -111,7 +126,9 @@ const Dashboard = () => {
           <h1 className="font-extrabold text-5xl">{activeSection.replace("-", " ").toUpperCase()}</h1>
         </div>
         <div className="mt-4 px-4 space-x-4">
-          {renderContent()}
+          {
+            renderContent()
+          }
         </div>
       </div>
     </div>

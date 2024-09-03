@@ -49,6 +49,7 @@ const Page = () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, requestOptions);
     const data = await response.json();
     if(response.status == '200'){
+      localStorage.setItem("user", JSON.stringify(data?.user))
       toast.success(data.message);
       router.push('/')
     }else{
