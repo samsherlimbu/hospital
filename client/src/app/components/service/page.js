@@ -2,36 +2,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
-// const services = [
-//     {
-//         id: 1,
-//         name: "Cardiology",
-//     },
-//     {
-//         id: 2,
-//         name: "Neurology",
-//     },
-//     {
-//         id: 3,
-//         name: "ENT",
-//     },
-//     {
-//         id: 4,
-//         name: "Dental",
-//     },
-//     {
-//         id: 5,
-//         name: "Gynaecology",
-//     },
-//     {
-//         id: 6,
-//         name: "Orthopedics",
-//     }, {
-//         id: 7,
-//         name: "Urology",
-//     },
-// ]
-
 const Service = () => {
 
 

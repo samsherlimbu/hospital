@@ -7,7 +7,8 @@ const doctorRoute = require('./src/routes/doctor');
 const departmentRoute = require('./src/routes/department');
 const detailsRoute = require('./src/routes/details');
 const appointmentRoute = require('./src/routes/appointment');
- const Appointment = require('./src/models/appointment'); // Import appointment routes
+ const Appointment = require('./src/models/appointment');
+ const patientRoute = require('./src/routes/patient') // Import appointment routes
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -34,7 +35,8 @@ app.use(messageRoute);
 app.use(doctorRoute);
 app.use(departmentRoute);
 app.use(detailsRoute);
-app.use(appointmentRoute); // Use appointment routes
+app.use(appointmentRoute);
+app.use(patientRoute) // Use appointment routes
 
 const port = process.env.PORT || 8000;
 
