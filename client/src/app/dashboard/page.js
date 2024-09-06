@@ -7,10 +7,9 @@ import { FaRegMessage } from "react-icons/fa6";
 import AdminDashboard from '../pages/AdminDashboard/page';
 
 import Patient from '../pages/patient/page';
-import DoctorSchedule from '../pages/doctorschedule/page';
+import DoctorSchedule from '../pages/Addinfo/page';
 import PatientAppointment from '../pages/patientappointment/page';
 import PatientCaseStudies from '../pages/casestudies/page';
-import Prescription from '../pages/prescription/page';
 import Content from '../pages/content/page';
 import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
@@ -26,10 +25,9 @@ const Dashboard = () => {
     { name: 'dashboard', label: 'Dashboard', icon: <FaClipboardList /> },
     { name: 'doctor', label: 'Doctor', icon: <FaUserMd /> },
     { name: 'patient', label: 'Patient', icon: <FaUser /> },
-    { name: 'doctor-schedule', label: 'Doctor Schedule', icon: <FaCalendarAlt /> },
+    { name: 'doctor-schedule', label: 'Admin User', icon: <FaUser /> },
     { name: 'patient-appointment', label: 'Patient Appointment', icon: <FaNotesMedical /> },
     { name: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
-    { name: 'prescription', label: 'Prescription', icon: <FaPrescriptionBottle /> },
     { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
     { name: 'department', label: 'Department', icon: <FaUserMd /> },
     { name: 'Doctor', label: 'DoctorDetails', icon: <FaUserMd /> },
@@ -49,8 +47,6 @@ const Dashboard = () => {
         return <PatientAppointment />;
       case 'patient-case-studies':
         return <PatientCaseStudies />;
-      case 'prescription':
-        return <Prescription />;
       case 'Message':
         return <Content />;
       case 'department':
@@ -75,7 +71,7 @@ const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin
 
 console.log(isAdmin === false)
 
-  if(isAdmin === "false") {
+  if(isAdmin === false) {
     return <>
     <div className="flex items-center justify-between">
       UNAUTHORIZED !!!

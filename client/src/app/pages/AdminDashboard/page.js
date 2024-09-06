@@ -9,7 +9,6 @@ const sidebar = [
   { label: 'Patient', count: 'patients', icon: <FaUserInjured /> },
   { label: 'Patient Appointment', count: 0, icon: <FaCalendarCheck /> },
   { label: 'Patient Case Studies', count: 0, icon: <FaFileMedical /> },
-  { label: 'Prescription', count: 0, icon: <FaPrescriptionBottleAlt /> },
 ];
 
 const AdminDashboard = () => {

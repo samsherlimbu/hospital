@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const genders = ["Male", "Female", "Other"];
-const bloodGroups = ["A+", "B+", "O+", "AB+", "A-", "B-", "O-", "AB+"];
+
 
 const Page = () => {
   const router = useRouter();
@@ -28,12 +28,13 @@ const Page = () => {
     phoneNumber: Yup.string()
       .matches(/^[0-9]+$/, "Phone number must be numeric")
       .min(10, 'Phone number must be at least 10 digits')
+      .max(10, 'Phone number must be at most 10 digits')
       .required('Required'),
     gender: Yup.string().oneOf(genders).required('Required'),
-    bloodGroup: Yup.string().oneOf(bloodGroups).required('Required'),
+  
     address: Yup.string(),
     date: Yup.date().required('Required'),
-    terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+    
   });
 
   const formik = useFormik({
@@ -44,10 +45,9 @@ const Page = () => {
       confirmPassword: '',
       phoneNumber: '',
       gender: '',
-      bloodGroup: '',
       address: '',
       date: '',
-      terms: false,
+     
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
@@ -176,7 +176,7 @@ const Page = () => {
             ) : null}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Gender <span className="text-red-500">*</span>
@@ -201,30 +201,8 @@ const Page = () => {
               ) : null}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Blood Group <span className="text-red-500">*</span>
-              </label>
-              <select
-                id="bloodGroup"
-                name="bloodGroup"
-                className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formik.values.bloodGroup}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option value="" label="Select blood group" />
-                {bloodGroups.map((item, id) => (
-                  <option value={item} key={id}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.bloodGroup && formik.errors.bloodGroup ? (
-                <div className="text-red-500 text-sm">{formik.errors.bloodGroup}</div>
-              ) : null}
-            </div>
-          </div>
+          
+         
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -257,24 +235,6 @@ const Page = () => {
             />
             {formik.touched.date && formik.errors.date ? (
               <div className="text-red-500 text-sm">{formik.errors.date}</div>
-            ) : null}
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="terms"
-              name="terms"
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              checked={formik.values.terms}
-              onChange={formik.handleChange}
-            />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I accept the <a href="#" className="text-indigo-600 hover:underline">terms and conditions</a>
-              <span className="text-red-500">*</span>
-            </label>
-            {formik.touched.terms && formik.errors.terms ? (
-              <div className="text-red-500 text-sm">{formik.errors.terms}</div>
             ) : null}
           </div>
 
