@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddCase from '../addcase/page';
-import { useRouter } from 'next/navigation';
+
 import Link from 'next/link';
 
 const PatientCaseStudies = () => {
@@ -12,7 +12,7 @@ const PatientCaseStudies = () => {
   const [filters, setFilters] = useState({ name: '', email: '', phone: '' });
   const [filterVisible, setFilterVisible] = useState(false);
   const [showAddCase, setShowAddCase] = useState(false);
-  const router = useRouter();
+  
 
   useEffect(() => {
     fetchCase();

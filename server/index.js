@@ -7,8 +7,7 @@ const doctorRoute = require('./src/routes/doctor');
 const departmentRoute = require('./src/routes/department');
 const detailsRoute = require('./src/routes/details');
 const appointmentRoute = require('./src/routes/appointment');
- const Appointment = require('./src/models/appointment');
- const patientRoute = require('./src/routes/patient') // Import appointment routes
+const patientRoute = require('./src/routes/patient'); // Import appointment routes
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -28,7 +27,6 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-
 // Use routes
 app.use(userRoute);
 app.use(messageRoute);
@@ -36,11 +34,13 @@ app.use(doctorRoute);
 app.use(departmentRoute);
 app.use(detailsRoute);
 app.use(appointmentRoute);
-app.use(patientRoute) // Use appointment routes
+app.use(patientRoute);
 
 const port = process.env.PORT || 8000;
 
+// Static file serving
 app.use('/doctor-image', express.static(path.join(__dirname, '/uploads/image')));
+app.use('/message-image', express.static(path.join(__dirname, '/uploads/messageImage')));
 
 io.on('connection', (socket) => {
   console.log('A user connected', socket.id);
@@ -48,14 +48,13 @@ io.on('connection', (socket) => {
   socket.on('appointments', async (appointments) => {
     try {
       const newAppointment = new Appointment(appointments);
-      await newAppointment.save(); // Ensure this is awaited
+      await newAppointment.save();
       io.emit('update-appointments', appointments);
     } catch (error) {
       console.error('Error saving appointment:', error);
     }
   });
 });
-
 
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

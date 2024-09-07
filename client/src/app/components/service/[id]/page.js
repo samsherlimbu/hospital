@@ -1,5 +1,6 @@
 'use client';
 
+import { Image } from '@nextui-org/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -27,6 +28,7 @@ const Page = ({ params }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {doctors.map((doctor) => (
           <div key={doctor._id} className="bg-red-300 p-4 rounded">
+            <Image src={`${process.env.NEXT_PUBLIC_API_URL}doctor-image/${doctor.doctorImage}`} width={100} height={100}/>
             <h2>{doctor.fullName}</h2>
             <p>{doctor.email}</p>
             <p>{doctor.phoneNumber}</p>
