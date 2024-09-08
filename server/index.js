@@ -8,6 +8,7 @@ const departmentRoute = require('./src/routes/department');
 const detailsRoute = require('./src/routes/details');
 const appointmentRoute = require('./src/routes/appointment');
 const patientRoute = require('./src/routes/patient'); // Import appointment routes
+const galleryRoute = require('./src/routes/gallery');
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -35,13 +36,14 @@ app.use(departmentRoute);
 app.use(detailsRoute);
 app.use(appointmentRoute);
 app.use(patientRoute);
+app.use(galleryRoute);
 
 const port = process.env.PORT || 8000;
 
 // Static file serving
 app.use('/doctor-image', express.static(path.join(__dirname, '/uploads/image')));
 app.use('/message-image', express.static(path.join(__dirname, '/uploads/messageImage')));
-
+app.use('/gallery-image', express.static(path.join(__dirname, '/uploads/galleryImage')));
 io.on('connection', (socket) => {
   console.log('A user connected', socket.id);
 

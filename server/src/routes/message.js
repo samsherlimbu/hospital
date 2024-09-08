@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { updateMessage, getMessage } = require('../controllers/updateMessage');
+const { updateMessage, getMessage ,deleteMessage} = require('../controllers/updateMessage');
 const multer = require('multer');
 
 // Configure multer for file uploads
@@ -18,5 +18,6 @@ const upload = multer({ storage: storage });
 // Routes
 router.post('/message', upload.single('messageImage'), updateMessage);
 router.get('/message', getMessage);
+router.delete('/deletemessage/:id', deleteMessage);
 
 module.exports = router;

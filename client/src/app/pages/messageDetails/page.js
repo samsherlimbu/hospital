@@ -2,6 +2,7 @@
 import { Image } from "@nextui-org/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast"; // Assuming you're using react-hot-toast for notifications
 
 const MessageDetails = ({ onCancel }) => {
   const [messages, setMessages] = useState([]);
@@ -20,6 +21,21 @@ const MessageDetails = ({ onCancel }) => {
     };
     fetchMessages();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}deletemessage/${id}` // Updated to pass _id
+      );
+      if (response.status === 200) {
+        toast.success("Message deleted successfully");
+        setMessages(messages.filter((message) => message._id !== id)); // Remove the deleted message from the list
+      }
+    } catch (error) {
+      console.error("Error deleting message:", error);
+      toast.error("Failed to delete message");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -48,7 +64,10 @@ const MessageDetails = ({ onCancel }) => {
                   <p className="text-sm text-gray-500">{message.messageFrom}</p>
                 </div>
                 <div className="flex justify-end mt-4">
-                  <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 mr-4 transition">
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 mr-4 transition"
+                    onClick={() => handleDelete(message._id)} // Pass the message ID to handleDelete
+                  >
                     Delete
                   </button>
                 </div>
@@ -59,7 +78,7 @@ const MessageDetails = ({ onCancel }) => {
           )}
         </div>
         <button
-          className="bg-blue-500 text-white mt-3  px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          className="bg-blue-500 text-white mt-3 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           onClick={onCancel}
         >
           Cancel
