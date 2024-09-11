@@ -1,5 +1,6 @@
-import DepartmentCard from '@/app/components/departmentcard/departmentCard';
+'use client';
 import React, { useEffect, useState } from 'react';
+import DepartmentCard from '@/app/components/departmentcard/departmentCard';
 
 const Department = () => {
   const [departments, setDepartments] = useState([]);
@@ -13,18 +14,12 @@ const Department = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor`);
       const data = await response.json();
-
-      // Create a Set to store unique department names
       const uniqueDepartments = Array.from(new Set(data.map(item => item.department)));
-
-      // Map back to original data structure with just department names and IDs
       const uniqueDepartmentData = uniqueDepartments.map(dept => {
         const deptInfo = data.find(item => item.department === dept);
         return { _id: deptInfo._id, department: deptInfo.department };
       });
-
       setDepartments(uniqueDepartmentData);
-      console.log(uniqueDepartmentData);
     } catch (error) {
       console.error('Error fetching departments:', error);
     }
@@ -47,12 +42,9 @@ const Department = () => {
         ))}
       </div>
       {departments.length > 8 && (
-        <div className='text-center mt-4'>
-          <button 
-            className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700'
-            onClick={toggleShowAll}
-          >
-            {showAll ? 'Show Less' : 'View More'}
+        <div className='flex justify-center mt-6'>
+          <button onClick={toggleShowAll} className='bg-gray-800 hover:bg-gray-600 text-white rounded-lg py-2 px-4'>
+            {showAll ? 'Show Less' : 'Show All'}
           </button>
         </div>
       )}

@@ -1,6 +1,5 @@
-'use client'
-import React from 'react'
-import { useState, useEffect } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 const images = [
   "/first.png",
@@ -8,7 +7,8 @@ const images = [
   "/third.png",
   "/fourth.png",
 ];
-const ImageSlider=()=> {
+
+const ImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const ImageSlider=()=> {
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-center bg-green-200 bg-opacity-50 p-4 rounded">
               <h2 className="text-2xl font-bold">KANTIPUR</h2>
               <p className="text-lg">International Hospital</p>
-              <p className="text-sm">A hospital may be a place of illness, but it's also a place of healing, hope, and humanity</p>
+              <p className="text-sm">A place of healing, hope, and humanity.</p>
             </div>
           </div>
         ))}
@@ -48,6 +48,6 @@ const ImageSlider=()=> {
       </button>
     </div>
   );
-}
+};
 
 export default ImageSlider;

@@ -9,6 +9,8 @@ const detailsRoute = require('./src/routes/details');
 const appointmentRoute = require('./src/routes/appointment');
 const patientRoute = require('./src/routes/patient'); // Import appointment routes
 const galleryRoute = require('./src/routes/gallery');
+const AboutRoute = require('./src/routes/about');
+const AboutUsRoute =require('./src/routes/AboutUs')
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -37,6 +39,8 @@ app.use(detailsRoute);
 app.use(appointmentRoute);
 app.use(patientRoute);
 app.use(galleryRoute);
+app.use(AboutRoute);
+app.use(AboutUsRoute);
 
 const port = process.env.PORT || 8000;
 

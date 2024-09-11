@@ -6,6 +6,8 @@ import Message from './pages/message/page'
 import Book from './components/book/page'
 import Navbar from './components/Navbar/page'
 import Footer from './components/footer/page'
+import Gallery from './components/gallery/page'
+
 
 
 
@@ -16,6 +18,7 @@ const page = () => {
         <Slider/>
         <Department/>
         <Message />
+        <Gallery/>
         <Book/>
         <Footer/>
     </div>

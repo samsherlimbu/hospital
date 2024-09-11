@@ -14,6 +14,7 @@ import Details from '../pages/doctordetails/page';
 import Doctor from '../pages/doctor/page';
 import AdminInfo from '../pages/Addinfo/page';
 import GalleryPage from '../pages/imagegallery/page';
+import AddAbout from '../pages/addabout/page';
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -30,6 +31,7 @@ const Dashboard = () => {
     { name: 'department', label: 'Department', icon: <FaUserMd /> },
     { name: 'Doctor', label: 'DoctorDetails', icon: <FaUserMd /> },
     { name: 'galleryImages', label: 'Gallery Images', icon: <FaImages />},
+    { name: 'addAbout', label: 'About', icon: <FaRegMessage /> },
   ];
 
   const renderContent = () => {
@@ -54,6 +56,9 @@ const Dashboard = () => {
         return <DepartmentTable />;
       case 'Doctor':
         return <Details />;
+        case 'addAbout':
+          return <AddAbout />;
+      
       default:
         return <div>Dashboard Content</div>;
     }
