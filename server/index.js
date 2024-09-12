@@ -11,6 +11,7 @@ const patientRoute = require('./src/routes/patient'); // Import appointment rout
 const galleryRoute = require('./src/routes/gallery');
 const AboutRoute = require('./src/routes/about');
 const AboutUsRoute =require('./src/routes/AboutUs')
+const FeedbackRoute = require('./src/routes/feedback')
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -41,6 +42,7 @@ app.use(patientRoute);
 app.use(galleryRoute);
 app.use(AboutRoute);
 app.use(AboutUsRoute);
+app.use(FeedbackRoute)
 
 const port = process.env.PORT || 8000;
 
