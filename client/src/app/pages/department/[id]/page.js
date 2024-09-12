@@ -1,5 +1,7 @@
 'use client';
 
+import Footer from '@/app/components/footer/page';
+import Navbar from '@/app/components/Navbar/page';
 import { Image } from '@nextui-org/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -23,6 +25,8 @@ const Page = ({ params }) => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8 text-center">Doctors in Department</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -50,13 +54,14 @@ const Page = ({ params }) => {
               <p className="text-gray-600 mb-1"><strong>Email:</strong> {doctor.email}</p>
               <p className="text-gray-600 mb-1"><strong>Phone:</strong> {doctor.phoneNumber}</p>
               <p className="text-gray-600 mb-1"><strong>Gender:</strong> {doctor.gender}</p>
-              <p className="text-gray-600 mb-1"><strong>Status:</strong> {doctor.status}</p>
               <p className="text-gray-600"><strong>Address:</strong> {doctor.address}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

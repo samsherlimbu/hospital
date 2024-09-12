@@ -68,26 +68,16 @@ const Navbar = () => {
                   </p>
                 </Link>
               </li>
-              <li
-                onMouseEnter={() => handleMouseEnter("service")}
-                onMouseLeave={handleMouseLeave}
-              >
+              <li>
+                <Link href='/components/service'>
                 <p
-                  className={`cursor-pointer hover:text-black ${
-                    isActive("/Service") ? "text-black" : ""
-                  }`}
-                >
-                  Our Services
-                </p>
-                {showDropdown === "service" && (
-                  <div
-                    className="absolute top-full w-40 text-center mt-0 bg-white text-black rounded-md shadow-lg z-50"
-                    onMouseEnter={() => handleMouseEnter("service")}
-                    onMouseLeave={handleMouseLeave}
+                    className={`cursor-pointer hover:text-black ${
+                      isActive("/components/service") ? "text-black" : ""
+                    }`}
                   >
-                    <Service />
-                  </div>
-                )}
+                    Our services
+                  </p>
+                </Link>
               </li>
               <li>
                 <Link href="/components/About">

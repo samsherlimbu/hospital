@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
-
 const Footer = () => {
 
   
@@ -33,11 +33,9 @@ const Footer = () => {
         
         {/* Right Section */}
         <div className='flex flex-col items-center md:items-end'>
-          <p className='font-bold'>🔗 Doctors</p>
-          <p className='mt-2'>🔗 Our Services</p>
-          <p className='mt-2'>🔗 Careers</p>
-          <p className='mt-2'>🔗 About Us</p>
-          <p className='mt-2'>🔗 Contact Us</p>
+          <Link href="/components/service" className='mt-2' >🔗 Our Services</Link>
+          <Link href="/components/About"className='mt-2' >🔗 About Us</Link>
+          <Link href="/components/contact" className='mt-2'>🔗 Contact Us</Link>
           <p className='mt-4'>Developed By</p>
           <p>InBox I.T. Solutions Pvt. Ltd</p>
         </div>

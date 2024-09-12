@@ -29,26 +29,30 @@ const Department = () => {
     setShowAll(prevShowAll => !prevShowAll);
   };
 
-  const departmentsToShow = showAll ? departments : departments.slice(0, 8);
+  const departmentsToShow = showAll ? departments : departments.slice(0, 6);
 
   return (
-    <div className='mx-auto p-10 bg-gray-200 w-full rounded-sm'>
-      <div className='text-3xl font-bold text-center mb-11 mt-3'>
-        <h1>Departments of Kantipur Hospital</h1>
-      </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4'>
+    <>
+      <div className=" text-center mb-12  text-gray-900 p-6 bg-slate-100 rounded-sm">
+        <h1 className='text-4xl font-extrabold mb-8'>Departments of Kantipur Hospital</h1>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {departmentsToShow.map((item) => (
           <DepartmentCard key={item._id} item={item} />
         ))}
       </div>
-      {departments.length > 8 && (
-        <div className='flex justify-center mt-6'>
-          <button onClick={toggleShowAll} className='bg-gray-800 hover:bg-gray-600 text-white rounded-lg py-2 px-4'>
-            {showAll ? 'Show Less' : 'Show All'}
+      {departments.length > 6 && (
+        <div className="flex justify-center mt-10">
+          <button
+            onClick={toggleShowAll}
+            className="bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg py-3 px-6 transition-transform transform hover:scale-105 shadow-lg"
+          >
+            {showAll ? 'Show Less' : 'Show More'}
           </button>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 
