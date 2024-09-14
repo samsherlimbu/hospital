@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { doctoruser, getAlldoctors,getDoctorsDetails } = require("../controllers/doctor");
+const { doctoruser, getAlldoctors,getDoctorsDetails,deleteDoctor } = require("../controllers/doctor");
 const router = Router();
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -16,5 +16,7 @@ const storage = multer.diskStorage({
 router.post('/registerdoctor',upload.single('doctorImage'), doctoruser);
 router.get('/usersdoctor', getAlldoctors);
 router.get('/usersdoctor/:id', getDoctorsDetails);
+router.delete('/usersdoctor/:id', deleteDoctor);
+
 
 module.exports = router;

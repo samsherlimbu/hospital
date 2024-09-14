@@ -2,34 +2,41 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Footer from '@/app/components/footer/page';
+import Navbar from '@/app/components/Navbar/page';
 
 const Page = () => {
   const [appointments, setAppointments] = useState([]);
   const router = useRouter();
+  const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
 
   useEffect(() => {
     // Fetch appointments from the server
     const fetchAppointments = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}appointments`);
-        setAppointments(response.data);
+        // Filter appointments based on user email
+        const filteredAppointments = response.data.filter(app => app.email === userEmail);
+        setAppointments(filteredAppointments);
       } catch (error) {
         console.error('Error fetching appointments:', error);
       }
     };
 
     fetchAppointments();
-  }, []);
+  }, [userEmail]);
 
   const handleChange = () => {
-    router.push('/pages/Appointment')
-  }
+    router.push('/pages/Appointment');
+  };
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-extrabold mb-8 text-center text-gray-800">Appointment Report</h1>
 
-      {['pending', 'accepted', 'rejected'].map(status => (
+      {['pending', 'accepted'].map(status => (
         <div key={status} className="mb-10">
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <h2 className={`text-2xl font-semibold mb-6 p-4 ${status === 'pending' ? 'bg-yellow-100' : status === 'accepted' ? 'bg-green-100' : 'bg-red-100'} capitalize`}>
@@ -76,6 +83,8 @@ const Page = () => {
         </button>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

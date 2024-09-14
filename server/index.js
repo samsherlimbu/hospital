@@ -17,6 +17,9 @@ const { createServer } = require('node:http');
 const path = require('path');
 require('dotenv').config();
 
+const Appointment = require('./src/models/appointment'); // Adjust the path based on your file structure
+
+
 // Connect to the database
 dbConnect();
 

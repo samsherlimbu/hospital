@@ -96,5 +96,35 @@ const deleteAdminById= async (req, res) => {
     }
 
 }
+const findAllUsersbyid = async (req, res) => {
+   
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            return res.status(200).json({
+                message: "User fetched successfully",
+                data: user
+            });
+        } catch (error) {
+            console.error("Error fetching user:", error);
+            return res.status(500).json({ message: "Server error", error: error.message });
+        }
+    };
 
-module.exports = { findAllUsers, registerUser, loginUser, findAllAdmin, getAdminById,deleteAdminById };
+    const deleteUserById=async (req, res) => {
+        const { id } = req.params;
+        try {
+            const deleteResult = await User.deleteOne({ _id: id });
+            if (deleteResult.deletedCount === 0) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            return res.json({ message: 'User deleted successfully' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Failed to delete user', error: error.message });
+        }
+    }
+
+module.exports = { findAllUsers, registerUser, loginUser, findAllAdmin, getAdminById,deleteAdminById ,findAllUsersbyid,deleteUserById};

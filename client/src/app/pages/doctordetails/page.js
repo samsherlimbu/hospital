@@ -55,8 +55,8 @@ const Details = () => {
     };
     
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-slate-400 border border-gray-200 rounded-lg shadow-md">
-            <h1 className="text-2xl font-semibold mb-4">Doctor Details</h1>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-slate-400 border border-gray-200 rounded-lg shadow-md text-center">
+            <h1 className="text-2xl font-semibold mb-4">Add Doctor</h1>
             <form onSubmit={formik.handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="doctorname" className="block text-sm font-medium text-gray-700">
@@ -113,7 +113,7 @@ const Details = () => {
                     <input
                         type="file"
                         onChange={(e) => setImage(e.target.files[0])} // Logs the entire event object
-                        className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                        className="text-center mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                     />
                 </div>
                 <div>

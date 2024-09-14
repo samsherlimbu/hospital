@@ -11,7 +11,7 @@ const PatientDetails = ({ params }) => {
   useEffect(() => {
     const fetchCase = async () => {
       try {
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}getPatient-cases/${params.id}`);
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}Patient-cases/${params.id}`);
         setPatient(data.data);
       } catch (error) {
         console.error('Error fetching patient case details:', error);

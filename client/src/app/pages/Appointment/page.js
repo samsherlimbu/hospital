@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useRouter } from 'next/navigation';
 import { socket } from "@/socket/socket";
+import Footer from "@/app/components/footer/page";
+import Navbar from "@/app/components/Navbar/page";
 
 const genderOptions = ["None", "male", "female", "other"];
 
@@ -34,13 +36,16 @@ const Appointment = () => {
     });
   }, []);
 
+  // Retrieve the email from localStorage
+  const localEmail = JSON.parse(localStorage.getItem('user'))?.email || '';
+
   const AppointSchema = Yup.object().shape({
     department: Yup.string().required("Department is required"),
     doctor: Yup.string().required("Doctor is required"),
     appointmentDate: Yup.date().required("Appointment Date is required"),
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email format").required("Email is required"),
-    number: Yup.string().required("Number is required"),
+    number: Yup.string().min(10, " must be at least 10 digits").max(10, " must be 10 digits").required("Number is required"),
     age: Yup.number().min(0, "Age must be at least 0").max(120, "Age must be at most 120").required("Age is required"),
     gender: Yup.string().required("Gender is required"),
   });
@@ -51,7 +56,7 @@ const Appointment = () => {
       doctor: 'None',
       appointmentDate: '',
       name: '',
-      email: '',
+      email: localEmail, // Set initial value for email from localStorage
       number: '',
       age: '',
       gender: 'None',
@@ -65,14 +70,16 @@ const Appointment = () => {
   });
 
   const handleReport = () => {
-    router.push('/pages/statement')
-  }
+    router.push('/pages/statement');
+  };
 
   const handleChange = () => {
-    router.push('/')
-  }
+    router.push('/');
+  };
 
   return (
+    <>
+    <Navbar />
     <div className="bg-gray-100 min-h-screen flex items-center justify-center p-4 md:p-8">
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-4 md:p-8">
         <div className="border-t border-b border-gray-300 py-4 mb-8">
@@ -191,6 +198,7 @@ const Appointment = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  readOnly
                   className={`block w-full rounded-lg shadow-sm border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} focus:border-teal-500 focus:ring focus:ring-teal-200`}
                 />
                 {formik.touched.email && formik.errors.email && (
@@ -271,6 +279,8 @@ const Appointment = () => {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

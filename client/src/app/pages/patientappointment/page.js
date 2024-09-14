@@ -1,28 +1,22 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from '@/socket/socket';
 import axios from 'axios';
-import {
-  setPage,
-  setPatients,
-} from "@/redux/reducerSlices/formSlice";
+import { setPage, setAppointments } from '@/redux/reducerSlices/appointmentSlice';
 
 const PatientAppointment = () => {
-  const [patientsPerPage] = useState(5);
+  const [appointmentsPerPage] = useState(5);
   const dispatch = useDispatch();
-
-  const {
-    currentPage,
-    patients,
-  } = useSelector((state) => state.form);
+  const { currentPage, Appointments } = useSelector((state) => state.appointments);
 
   useEffect(() => {
     // Fetch existing appointments when component mounts
     const fetchAppointments = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}appointments`);
-        dispatch(setPatients(response.data)); // Use dispatch to set patients in Redux store
+        
+        dispatch(setAppointments(response.data));
       } catch (error) {
         console.error('Error fetching appointments:', error);
       }
@@ -31,32 +25,33 @@ const PatientAppointment = () => {
 
     // Listen for 'update-appointments' event to receive new appointments
     socket.on('update-appointments', (newAppointment) => {
-      dispatch(setPatients([...patients, newAppointment])); // Update patients state in Redux
+      console.log('New appointment received:', newAppointment);
+      dispatch(setAppointments([...Appointments, newAppointment]));
     });
 
     // Clean up the socket connection on unmount
     return () => {
       socket.off('update-appointments');
     };
-  }, [dispatch, patients]);
+  }, [dispatch, Appointments]);
 
-  const indexOfLastPatients = currentPage * patientsPerPage;
-  const indexOfFirstPatients = indexOfLastPatients - patientsPerPage;
-  const currentPatients = patients.slice(indexOfFirstPatients, indexOfLastPatients);
+  const indexOfLastAppointments = currentPage * appointmentsPerPage;
+  const indexOfFirstAppointments = indexOfLastAppointments - appointmentsPerPage;
+  const currentAppointments = Appointments.slice(indexOfFirstAppointments, indexOfLastAppointments);
 
   const paginate = (pageNumber) => {
-    dispatch(setPage(pageNumber)); // Use dispatch to set the current page in Redux
+    dispatch(setPage(pageNumber));
   };
 
   const handleStatusChange = async (id, status) => {
     try {
       if (status === 'rejected') {
         await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}appointments/${id}`);
-        dispatch(setPatients(patients.filter(patient => patient._id !== id))); // Remove rejected patient from Redux state
+        dispatch(setAppointments(Appointments.filter(patient => patient._id !== id)));
       } else {
         const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}appointments/${id}`, { status });
-        dispatch(setPatients(
-          patients.map(patient =>
+        dispatch(setAppointments(
+          Appointments.map(patient =>
             patient._id === id ? { ...patient, status: response.data.appointment.status } : patient
           )
         ));
@@ -68,7 +63,7 @@ const PatientAppointment = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className='text-center'>Online Patient Appointments</h2>
+      <h2 className="text-center">Online Patient Appointments</h2>
       <table className="min-w-full bg-white border">
         <thead>
           <tr>
@@ -79,7 +74,7 @@ const PatientAppointment = () => {
           </tr>
         </thead>
         <tbody>
-          {currentPatients.map((item) => (
+          {currentAppointments.map((item) => (
             <tr key={item._id} className="border-b">
               <td className="py-2 px-4">{item.doctor}</td>
               <td className="py-2 px-4">{item.name}</td>
@@ -111,7 +106,7 @@ const PatientAppointment = () => {
           Previous
         </button>
         <div>
-          {Array.from({ length: Math.ceil(patients.length / patientsPerPage) }, (_, i) => (
+          {Array.from({ length: Math.ceil(Appointments.length / appointmentsPerPage) }, (_, i) => (
             <button
               key={i + 1}
               onClick={() => paginate(i + 1)}
@@ -123,7 +118,7 @@ const PatientAppointment = () => {
         </div>
         <button
           onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === Math.ceil(patients.length / patientsPerPage)}
+          disabled={currentPage === Math.ceil(Appointments.length / appointmentsPerPage)}
           className="px-4 py-2 bg-blue-500 text-white rounded"
         >
           Next

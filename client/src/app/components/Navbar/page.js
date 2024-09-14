@@ -10,7 +10,6 @@ import {
   hideDropdown,
   logoutUser,
 } from "@/redux/reducerSlices/navbarSlice";
-import Service from "../service/page";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -34,102 +33,71 @@ const Navbar = () => {
   };
 
   const handleSignOut = () => {
-    // Logic for signing out, e.g., clearing tokens, updating state, etc.
     localStorage.removeItem("user");
     dispatch(logoutUser());
   };
 
   return (
-    <>
-      <div className="w-full bg-blue-300 h-[80px] z-50">
-        <div className="container mx-auto px-4 h-full relative">
-          <div className="flex justify-between items-center h-full">
-            <p>logo</p>
-            <ul className="hidden md:flex gap-x-6 text-white relative">
-              <li>
-                <Link href="/">
-                  <p
-                    className={`hover:text-black ${
-                      isActive("/") ? "text-black" : ""
-                    }`}
-                  >
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/components/contact">
-                  <p
-                    className={`hover:text-black ${
-                      isActive("/components/contact") ? "text-black" : ""
-                    }`}
-                  >
-                    Contact
-                  </p>
-                </Link>
-              </li>
-              <li>
-                <Link href='/components/service'>
-                <p
-                    className={`cursor-pointer hover:text-black ${
-                      isActive("/components/service") ? "text-black" : ""
-                    }`}
-                  >
-                    Our services
-                  </p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/components/About">
-                  <p
-                    className={`cursor-pointer hover:text-black ${
-                      isActive("/components/About") ? "text-black" : ""
-                    }`}
-                  >
-                    About Us
-                  </p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/pages/Appointment">
-                  <p
-                    className={`hover:text-black ${
-                      isActive("/pages/Appointment") ? "text-black" : ""
-                    }`}
-                  >
-                    Online Appointment
-                  </p>
-                </Link>
-              </li>
-              <li>
-                <User
-                  className="text-white h-6 w-6 ml-5 cursor-pointer"
-                  onClick={handleUserIconClick}
-                />
-                {userIconClicked && (
-                  <div className="absolute top-12 right-0 z-50">
-                    {isLoggedIn ? (
-                      <button
-                        className="bg-gray-500 text-white rounded-md px-4 py-2"
-                        onClick={handleSignOut}
-                      >
-                        Sign Out
-                      </button>
-                    ) : (
-                      <Link href="/pages/login">
-                        <button className="bg-gray-500 text-white rounded-md px-4 py-2">
-                          Sign In
-                        </button>
-                      </Link>
-                    )}
-                  </div>
-                )}
-              </li>
-            </ul>
-          </div>
+    <div className="w-full bg-blue-500 h-[80px] z-50 shadow-md">
+      <div className="container mx-auto px-4 h-full relative flex justify-between items-center">
+        {/* Logo */}
+        <div className="text-white font-bold text-xl cursor-pointer">
+          <Link href="/">HospitalLogo</Link>
         </div>
+
+        {/* Navbar links */}
+        <ul className="hidden md:flex gap-x-8 items-center">
+          {[
+            { href: "/", label: "Home" },
+            { href: "/components/contact", label: "Contact" },
+            { href: "/components/service", label: "Our Services" },
+            { href: "/components/About", label: "About Us" },
+            { href: "/pages/Appointment", label: "Online Appointment" },
+            { href: "/dashboard", label: "Dashboard" },
+          ].map((link) => (
+            <li key={link.href}>
+              <Link href={link.href}>
+                <p
+                  className={`hover:text-gray-300 transition-colors ${
+                    isActive(link.href) ? "text-gray-300" : "text-white"
+                  }`}
+                >
+                  {link.label}
+                </p>
+              </Link>
+            </li>
+          ))}
+          {/* User icon */}
+          <li className="relative">
+            <User
+              className="text-white h-6 w-6 ml-5 cursor-pointer"
+              onClick={handleUserIconClick}
+            />
+            {userIconClicked && (
+              <div className="absolute top-12 right-0 z-50 bg-white rounded-lg shadow-lg p-4">
+                {isLoggedIn ? (
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 transition-all"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <Link href="/pages/login">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 transition-all">
+                      Sign In
+                    </button>
+                  </Link>
+                )}
+              </div>
+            )}
+          </li>
+        </ul>
+
+        {/* Mobile menu (optional) */}
+        {/* Add a burger icon and mobile drawer here if needed */}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -10,6 +10,7 @@ const AppointmentSchema = new Schema({
     number: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true },
-    status: { type: String, default: 'pending' },  // Default status is 'pending'
-})
+    status: { type: String, default: 'pending' }, 
+});
+
 module.exports = mongoose.model('Appointment', AppointmentSchema);

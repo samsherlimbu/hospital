@@ -34,12 +34,22 @@ const getAlldoctors = async (req, res) => {
 
 const getDoctorsDetails = async (req, res) => {
   try {
-    const doctors = await Doctor.find({ department: req.params.id });
-    res.status(200).json(doctors);
+    const doctor = await Doctor.findById(req.params.id);  
+    if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
+    res.status(200).json(doctor);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Server error' });
   }
 };
+const deleteDoctor = async (req, res) => {
+  try {
+    const doctor = await Doctor.findByIdAndDelete(req.params.id );
+    if (!doctor) return res.status(404).json({ msg: 'doctor not found' });
+    res.status(200).json({ msg: 'doctor deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ msg: 'Error deleting message' });
+  }
+}
 
-module.exports = { doctoruser, getAlldoctors, getDoctorsDetails };
+module.exports = { doctoruser, getAlldoctors, getDoctorsDetails,deleteDoctor };

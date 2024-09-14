@@ -28,8 +28,7 @@ const Dashboard = () => {
     { name: 'patient-appointment', label: 'Patient Appointment', icon: <FaNotesMedical /> },
     { name: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
     { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
-    { name: 'department', label: 'Department', icon: <FaUserMd /> },
-    { name: 'Doctor', label: 'DoctorDetails', icon: <FaUserMd /> },
+    { name: 'Doctor', label: 'Add Doctor', icon: <FaUserMd /> },
     { name: 'galleryImages', label: 'Gallery Images', icon: <FaImages />},
     { name: 'addAbout', label: 'About', icon: <FaRegMessage /> },
   ];
@@ -52,8 +51,6 @@ const Dashboard = () => {
         return <Content />;
       case 'galleryImages':
         return <GalleryPage />;
-      case 'department':
-        return <DepartmentTable />;
       case 'Doctor':
         return <Details />;
         case 'addAbout':

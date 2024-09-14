@@ -12,6 +12,7 @@ import {
   applyFilters
 } from "@/redux/reducerSlices/doctorSlice";
 import axios from "axios";
+import Link from "next/link";
 
 const Doctor = () => {
   const dispatch = useDispatch();
@@ -21,19 +22,27 @@ const Doctor = () => {
     currentPage,
     filters = { fullName: '', email: '', phoneNumber: ''},
     doctors = [],
-      // Initialize as an empty array if undefined
   } = useSelector((state) => state.doctor);
 
   useEffect(() => {
-    fetchAlldoctors();
+    fetchAllDoctors();
   }, [dispatch]);
 
-  const fetchAlldoctors = async () => {
+  const fetchAllDoctors = async () => {
     try {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor`);
       dispatch(setDoctors(data));
     } catch (error) {
       console.error("Error fetching doctors:", error);
+    }
+  };
+
+  const deleteDoctor = async (doctorId) => {
+    try {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor/${doctorId}`);
+      fetchAllDoctors(); // Re-fetch doctors after deletion
+    } catch (error) {
+      console.error("Error deleting doctor:", error);
     }
   };
 
@@ -64,7 +73,7 @@ const Doctor = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 onClick={() => dispatch(toggleAddDoctorForm())}
               >
                 Add Doctor
@@ -73,55 +82,54 @@ const Doctor = () => {
             <div>
               <button
                 onClick={() => dispatch(toggleFilterVisibility())}
-                className="btn-filter bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               >
                 Filter
               </button>
             </div>
           </div>
           {filterVisible && (
-            <div className="flex justify-between mb-4">
-              <div>
+            <div className="flex flex-wrap gap-4 mb-4">
+              {/* Filter Form */}
+              <div className="w-full sm:w-1/3">
                 <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
                   name="fullName"
-                  placeholder="Your name"
-                  className="px-4 py-2 border rounded w-full"
+                  placeholder="Enter name"
+                  className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                   onChange={handleInputChange}
                   value={filters.fullName}
                 />
               </div>
-              <div>
+              <div className="w-full sm:w-1/3">
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="text"
                   name="email"
-                  placeholder="Your email"
-                  className="px-4 py-2 border rounded w-full"
+                  placeholder="Enter email"
+                  className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                   onChange={handleInputChange}
                   value={filters.email}
                 />
               </div>
-            
-              <div>
+              <div className="w-full sm:w-1/3">
                 <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
                   type="text"
                   name="phone"
-                  placeholder="Your number"
-                  className="px-4 py-2 border rounded w-full"
+                  placeholder="Enter phone number"
+                  className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                   onChange={handleInputChange}
                   value={filters.phone}
                 />
-                
               </div>
-              <div className="flex items-end">
+              <div className="w-full flex items-end">
                 <button
-                  className="bg-teal-500 text-white px-4 py-2 rounded"
+                  className="bg-teal-600 text-white px-5 py-2 rounded-lg shadow hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
                   onClick={handleApplyFilters}
                 >
-                  Submit
+                  Apply Filters
                 </button>
               </div>
             </div>
@@ -137,7 +145,7 @@ const Doctor = () => {
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-slate-300 gap-2">
+            <tbody className="bg-slate-300">
               {currentDoctors.map((doctor, index) => (
                 <tr key={index} className="border-b">
                   <td className="py-2 px-4">{doctor.fullName}</td>
@@ -145,11 +153,19 @@ const Doctor = () => {
                   <td className="py-2 px-4">{doctor.phoneNumber}</td>
                   <td className="py-2 px-4">{doctor.gender}</td>
                   <td className="py-2 px-4">{doctor.address}</td>
-                  <td className="flex p-4">
-                    <span className="cursor-pointer space-y-2">
-                      <Button className="bg-slate-400">Delete</Button>
-                      <Button className="bg-slate-400">Details</Button>
-                    </span>
+                  <td className="flex space-x-2 mt-2">
+                    <Button
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                      onClick={() => deleteDoctor(doctor._id)}
+                    >
+                      Delete
+                    </Button>
+                    <Link
+                      href={`/pages/doctor/${doctor._id}`}
+                      className="bg-gray-600 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+                    >
+                      Details
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -159,7 +175,7 @@ const Doctor = () => {
             <button
               onClick={() => handlePaginate(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
             >
               Previous
             </button>
@@ -168,7 +184,7 @@ const Doctor = () => {
                 <button
                   key={i + 1}
                   onClick={() => handlePaginate(i + 1)}
-                  className={`px-4 py-2 mx-1 ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} rounded`}
+                  className={`px-4 py-2 mx-1 ${currentPage === i + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'} rounded-lg shadow hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition`}
                 >
                   {i + 1}
                 </button>
@@ -177,7 +193,7 @@ const Doctor = () => {
             <button
               onClick={() => handlePaginate(currentPage + 1)}
               disabled={currentPage === Math.ceil(doctors.length / doctorsPerPage)}
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
             >
               Next
             </button>

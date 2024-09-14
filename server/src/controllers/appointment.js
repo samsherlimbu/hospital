@@ -1,15 +1,14 @@
-// controllers/appointmentController.js
 const Appointment = require('../models/appointment');
 
-// Existing getAppointments function
 const getAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find();
+    const appointments = await Appointment.find();// Log fetched appointments for debugging
     res.json(appointments);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 const updateAppointmentStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -40,4 +39,3 @@ const deleteAppointment = async (req, res) => {
 };
 
 module.exports = { getAppointments, updateAppointmentStatus, deleteAppointment };
-
