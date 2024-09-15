@@ -4,7 +4,11 @@ import Navbar from '../Navbar/page';
 import Footer from '../footer/page';
 import axios from 'axios';
 
+import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+
 const FeedbackPage = () => {
+  const isLoggedIn = useSelector((state) => state.navbar.isLoggedIn); // Assuming you have an isLoggedIn flag in the navbar state
   const [formData, setFormData] = useState({ email: '', message: '' });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -26,6 +30,12 @@ const FeedbackPage = () => {
   // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the user is logged in
+    if (!isLoggedIn) {
+      toast('Please log in first to submit feedback.');
+      return;
+    }
 
     // Basic client-side validation
     if (!formData.email || !formData.message) {

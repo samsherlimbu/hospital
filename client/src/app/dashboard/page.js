@@ -9,12 +9,14 @@ import Patient from '../pages/patient/page';
 import PatientAppointment from '../pages/patientappointment/page';
 import PatientCaseStudies from '../pages/casestudies/page';
 import Content from '../pages/content/page';
-import DepartmentTable from '../components/departmenttable/page';
 import Details from '../pages/doctordetails/page';
 import Doctor from '../pages/doctor/page';
 import AdminInfo from '../pages/Addinfo/page';
 import GalleryPage from '../pages/imagegallery/page';
 import AddAbout from '../pages/addabout/page';
+import Image from '../pages/Image/page';
+import FooterForm from '../pages/footerdetail/page';
+
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -31,6 +33,8 @@ const Dashboard = () => {
     { name: 'Doctor', label: 'Add Doctor', icon: <FaUserMd /> },
     { name: 'galleryImages', label: 'Gallery Images', icon: <FaImages />},
     { name: 'addAbout', label: 'About', icon: <FaRegMessage /> },
+    { name: 'footerform', label: 'Footer Form', icon: <FaRegMessage />}
+
   ];
 
   const renderContent = () => {
@@ -51,11 +55,14 @@ const Dashboard = () => {
         return <Content />;
       case 'galleryImages':
         return <GalleryPage />;
+        case 'imageSlider':
+        return <Image />
       case 'Doctor':
         return <Details />;
         case 'addAbout':
           return <AddAbout />;
-      
+          case 'footerform':
+            return <FooterForm />;
       default:
         return <div>Dashboard Content</div>;
     }
@@ -104,13 +111,7 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-          <div
-            className="mt-auto flex items-center p-4 cursor-pointer hover:bg-gray-100 rounded-lg"
-            onClick={() => alert('Logged out')}
-          >
-            <FaSignOutAlt className="mr-2" />
-            <span>Log Out</span>
-          </div>
+         
         </div>
       </div>
 

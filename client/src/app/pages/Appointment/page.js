@@ -7,11 +7,13 @@ import { useRouter } from 'next/navigation';
 import { socket } from "@/socket/socket";
 import Footer from "@/app/components/footer/page";
 import Navbar from "@/app/components/Navbar/page";
+import toast from "react-hot-toast";
 
 const genderOptions = ["None", "male", "female", "other"];
 
 const Appointment = () => {
   const doctors = useSelector((state) => state.doctor.doctors);
+  const isLoggedIn = useSelector((state) => state.navbar.isLoggedIn);
   const router = useRouter();
 
   // Extract unique department names from doctors
@@ -63,6 +65,10 @@ const Appointment = () => {
     },
     validationSchema: AppointSchema,
     onSubmit: values => {
+      if (!isLoggedIn) {
+        toast.error("Please login first to book an appointment!"); // Show toast if not logged in
+        return;
+      }
       socket.emit('appointments', values);
       alert("Your appointment has been submitted!");
       router.push('/');

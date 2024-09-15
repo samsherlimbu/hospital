@@ -34,17 +34,22 @@ const getAlldoctors = async (req, res) => {
 
 const getDoctorsDetails = async (req, res) => {
   try {
-    const doctor = await Doctor.findById(req.params.id);  
-    if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
-    res.status(200).json(doctor);
+    const { id } = req.params; // Ensure this is a string
+    const doctor = await Doctor.findById(id);
+    if (!doctor) {
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+    res.json(doctor);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
 const deleteDoctor = async (req, res) => {
   try {
-    const doctor = await Doctor.findByIdAndDelete(req.params.id );
+    const {id}=req.params
+    const doctor = await Doctor.findByIdAndDelete(id );
     if (!doctor) return res.status(404).json({ msg: 'doctor not found' });
     res.status(200).json({ msg: 'doctor deleted successfully' });
   } catch (error) {
@@ -52,4 +57,28 @@ const deleteDoctor = async (req, res) => {
   }
 }
 
-module.exports = { doctoruser, getAlldoctors, getDoctorsDetails,deleteDoctor };
+const getDepartments = async (req, res) => {
+  try {
+    const doctors = await Doctor.find();
+    res.status(200).json(doctors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Server error' });
+  }
+};
+ 
+const getDepartmentsby = async (req, res) => {
+  try {
+    const doctors = await Doctor.find({ department: req.params.id });
+    res.status(200).json(doctors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Server error' });
+  }
+};
+
+
+
+
+
+module.exports = { doctoruser, getAlldoctors, getDoctorsDetails,deleteDoctor,getDepartments,getDepartmentsby}; 

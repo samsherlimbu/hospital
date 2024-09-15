@@ -12,6 +12,8 @@ const galleryRoute = require('./src/routes/gallery');
 const AboutRoute = require('./src/routes/about');
 const AboutUsRoute =require('./src/routes/AboutUs')
 const FeedbackRoute = require('./src/routes/feedback')
+const sliderRoute = require('./src/routes/slider')
+const FooterRoute = require('./src/routes/Foot')
 const { Server } = require('socket.io');
 const { createServer } = require('node:http');
 const path = require('path');
@@ -46,13 +48,18 @@ app.use(galleryRoute);
 app.use(AboutRoute);
 app.use(AboutUsRoute);
 app.use(FeedbackRoute)
+app.use(sliderRoute)
+app.use(FooterRoute)
 
 const port = process.env.PORT || 8000;
 
 // Static file serving
-app.use('/doctor-image', express.static(path.join(__dirname, '/uploads/image')));
+app.use('/doctor-image', express.static(path.join(__dirname, '/uploads/doctor')));
 app.use('/message-image', express.static(path.join(__dirname, '/uploads/messageImage')));
 app.use('/gallery-image', express.static(path.join(__dirname, '/uploads/galleryImage')));
+app.use('/slider-image', express.static(path.join(__dirname, '/uploads/sliderImage')));
+
+
 io.on('connection', (socket) => {
   console.log('A user connected', socket.id);
 

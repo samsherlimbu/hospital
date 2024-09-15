@@ -17,50 +17,59 @@ const Page = ({ params }) => {
 
   const fetchDoctors = async () => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor/${params.id}`);
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}departments/${params.id}`);
+      console.log(data);
       setDoctors(data);
     } catch (error) {
-      console.error("Error fetching doctors:", error);
+      console.error('Error fetching doctors:', error);
     }
   };
 
   return (
     <>
-    <Navbar/>
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-8 text-center">Doctors in Department</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {doctors.map((doctor) => (
-          <div 
-            key={doctor._id} 
-            className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          >
-            <div className="relative flex items-center justify-center h-48">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_URL}doctor-image/${doctor.doctorImage}`}
-                width={300}
-                height={300}
-                className="object-cover rounded-t-lg"
-                alt={doctor.fullName}
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-t-lg">
-                <div className="text-center text-white text-lg font-semibold">
+      <Navbar />
+      <div className="container mx-auto py-12 px-4 lg:px-8">
+        <h1 className="text-4xl font-extrabold mb-12 text-center text-gray-800">
+          Meet Our Doctors
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {doctors.map((doctor) => (
+            <div
+              key={doctor._id}
+              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="relative flex items-center justify-center h-56">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_URL}doctor-image/${doctor.doctorImage}`}
+                  width={200}
+                  height={200}
+                  className="object-cover rounded-t-lg mb-4"
+                  alt={doctor.fullName}
+                />
+                
+              </div>
+              <div className="p-6 text-center">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-3">
                   {doctor.fullName}
-                </div>
+                </h2>
+                <p className="text-gray-700 mb-2">
+                  <strong>Email:</strong> {doctor.email}
+                </p>
+                <p className="text-gray-700 mb-2">
+                  <strong>Phone:</strong> {doctor.phoneNumber}
+                </p>
+                <p className="text-gray-700 mb-2">
+                  <strong>Department:</strong> {doctor.department}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Address:</strong> {doctor.address}
+                </p>
               </div>
             </div>
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold mb-2">{doctor.fullName}</h2>
-              <p className="text-gray-600 mb-1"><strong>Email:</strong> {doctor.email}</p>
-              <p className="text-gray-600 mb-1"><strong>Phone:</strong> {doctor.phoneNumber}</p>
-              <p className="text-gray-600 mb-1"><strong>Gender:</strong> {doctor.gender}</p>
-              <p className="text-gray-600"><strong>Address:</strong> {doctor.address}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };

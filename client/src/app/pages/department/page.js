@@ -12,7 +12,7 @@ const Department = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}usersdoctor`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}departments`);
       const data = await response.json();
       const uniqueDepartments = Array.from(new Set(data.map(item => item.department)));
       const uniqueDepartmentData = uniqueDepartments.map(dept => {

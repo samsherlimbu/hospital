@@ -43,7 +43,7 @@ const Info = ({ params }) => {
         </div>
         <div>
           <h2 className="text-xl font-bold text-gray-700">Additional Details</h2>
-          <p className="text-gray-600"><strong>Gender:</strong> {doctor.gender}</p>
+          <p className="text-gray-600"><strong>Department:</strong> {doctor.department}</p>
         </div>
         <button
           onClick={() => router.back()}

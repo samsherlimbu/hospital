@@ -49,6 +49,7 @@ const deleteImagesByTitle = async (req, res) => {
   try {
     const { title } = req.params; // Retrieve the title from request params
     await Gallery.deleteMany({ title }); // Delete all images with the specified title
+    
     res.status(200).json({ message: 'All images for the specified title deleted successfully!' });
   } catch (error) {
     console.error('Error deleting images by title:', error);
