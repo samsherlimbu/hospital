@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { FaUserMd, FaClipboardList, FaNotesMedical, FaImages, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
@@ -9,7 +8,6 @@ import Patient from '../pages/patient/page';
 import PatientAppointment from '../pages/patientappointment/page';
 import PatientCaseStudies from '../pages/casestudies/page';
 import Content from '../pages/content/page';
-import Details from '../pages/doctordetails/page';
 import Doctor from '../pages/doctor/page';
 import AdminInfo from '../pages/Addinfo/page';
 import GalleryPage from '../pages/imagegallery/page';
@@ -30,11 +28,9 @@ const Dashboard = () => {
     { name: 'patient-appointment', label: 'Patient Appointment', icon: <FaNotesMedical /> },
     { name: 'patient-case-studies', label: 'Patient Case Studies', icon: <FaClipboardList /> },
     { name: 'Message', label: 'Message', icon: <FaRegMessage /> },
-    { name: 'Doctor', label: 'Add Doctor', icon: <FaUserMd /> },
     { name: 'galleryImages', label: 'Gallery Images', icon: <FaImages />},
     { name: 'addAbout', label: 'About', icon: <FaRegMessage /> },
     { name: 'footerform', label: 'Footer Form', icon: <FaRegMessage />}
-
   ];
 
   const renderContent = () => {
@@ -55,14 +51,12 @@ const Dashboard = () => {
         return <Content />;
       case 'galleryImages':
         return <GalleryPage />;
-        case 'imageSlider':
+      case 'imageSlider':
         return <Image />
-      case 'Doctor':
-        return <Details />;
-        case 'addAbout':
-          return <AddAbout />;
-          case 'footerform':
-            return <FooterForm />;
+      case 'addAbout':
+        return <AddAbout />;
+      case 'footerform':
+        return <FooterForm />;
       default:
         return <div>Dashboard Content</div>;
     }
@@ -72,8 +66,9 @@ const Dashboard = () => {
     setActiveSection(sectionname);
   };
 
-  const handleChatClick = () => {
-    router.push('/pages/chat');
+
+  const handleBackClick = () => {
+    router.push('/');
   };
 
   const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
@@ -89,8 +84,8 @@ const Dashboard = () => {
   return (
     <div className="h-screen w-full bg-gray-100 grid grid-cols-12">
       {/* Sidebar */}
-      <div className="col-span-3 bg-white p-4 shadow-lg">
-        <div className="bg-white h-screen fixed top-0 left-0 overflow-y-auto ml-5 w-[20%] rounded-lg mt-4 shadow-xl">
+      <div className="col-span-3 bg-white p-4 shadow-lg ">
+        <div className="bg-white h-screen fixed top-0 left-0 overflow-y-auto ml-5 w-[20%] rounded-lg mt-2 shadow-xl">
           <div className="flex flex-col items-center py-6">
             <div className="mb-4">
               <img src="/logo.png" alt="Logo" className="h-12 w-12 rounded-full" />
@@ -111,20 +106,22 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-         
+          {/* Back Button */}
+          <div className="mt-4 text-center mb-4">
+            <button
+              onClick={handleBackClick}
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300"
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="col-span-9 bg-gray-50 p-6 overflow-y-auto">
-        <div className="flex items-center justify-between w-full rounded-lg bg-white shadow-lg p-6">
-          <p className="font-bold text-2xl text-green-600">Admin Dashboard</p>
-          <Button
-            className="bg-green-500 text-white font-semibold py-3 px-6 rounded-full hover:bg-green-400 transition duration-300"
-            onClick={handleChatClick}
-          >
-            Chat with us
-          </Button>
+        <div className="flex items-center justify-center w-full rounded-lg bg-white shadow-lg p-6">
+          <p className="font-bold text-2xl text-green-600 flex items-center">Admin Dashboard</p>
         </div>
 
         <div className="bg-gradient-to-r from-green-300 to-green-500 rounded-lg mt-6 p-6">

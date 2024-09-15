@@ -140,7 +140,7 @@ const Doctor = () => {
                 <th className="py-2 px-4 border-b">Full Name <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Email <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Phone Number <span>↑↓</span></th>
-                <th className="py-2 px-4 border-b">Gender <span>↑↓</span></th>
+                <th className="py-2 px-4 border-b">Department <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Address <span>↑↓</span></th>
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
@@ -151,7 +151,7 @@ const Doctor = () => {
                   <td className="py-2 px-4">{doctor.fullName}</td>
                   <td className="py-2 px-4">{doctor.email}</td>
                   <td className="py-2 px-4">{doctor.phoneNumber}</td>
-                  <td className="py-2 px-4">{doctor.gender}</td>
+                  <td className="py-2 px-4">{doctor.department}</td>
                   <td className="py-2 px-4">{doctor.address}</td>
                   <td className="flex space-x-2 mt-2">
                     <Button

@@ -30,14 +30,9 @@ const AddPatientForm = ({ onCancel }) => {
       .min(10, "phoneNumber number must be at least 10 digits")
       .required("Required"),
     gender: Yup.string().oneOf(genders).required("Required"),
-    bloodGroup: Yup.string().oneOf(bloodGroups).required("Required"),
-    status: Yup.string().oneOf(statusOptions).required("Required"),
     address: Yup.string(),
     date: Yup.date().required("Required"),
-    terms: Yup.boolean().oneOf(
-      [true],
-      "You must accept the terms and conditions"
-    ),
+  
   });
 
   const formik = useFormik({
@@ -48,11 +43,9 @@ const AddPatientForm = ({ onCancel }) => {
       confirmPassword: "",
       phoneNumber: "",
       gender: "",
-      bloodGroup: "",
-      status: "",
       address: "",
       date: "",
-      terms: false,
+      
     },
     validationSchema: registerSchema,
     onSubmit: (values) => {
@@ -190,8 +183,6 @@ const AddPatientForm = ({ onCancel }) => {
               </div>
             ) : null}
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Gender <span className="text-red-500">*</span>
@@ -218,32 +209,7 @@ const AddPatientForm = ({ onCancel }) => {
               ) : null}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Blood Group <span className="text-red-500">*</span>
-              </label>
-              <select
-                id="bloodGroup"
-                name="bloodGroup"
-                className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formik.values.bloodGroup}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option value="" label="Select blood group" />
-                {bloodGroups.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.bloodGroup && formik.errors.bloodGroup ? (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.bloodGroup}
-                </div>
-              ) : null}
-            </div>
-          </div>
+            
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -266,7 +232,6 @@ const AddPatientForm = ({ onCancel }) => {
             ) : null}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Date of Birth <span className="text-red-500">*</span>
@@ -285,91 +250,6 @@ const AddPatientForm = ({ onCancel }) => {
               ) : null}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Status <span className="text-red-500">*</span>
-              </label>
-              <select
-                id="status"
-                name="status"
-                className="mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formik.values.status}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              >
-                <option value="" label="Select status" />
-                {statusOptions.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.status && formik.errors.status ? (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.status}
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Photo
-            </label>
-            <div className="mt-1 flex justify-center border-2 border-dashed border-gray-300 rounded-md py-6 px-6">
-              <div className="text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path d="M24 0v48M0 24h48" />
-                </svg>
-                <div className="flex text-sm text-gray-600 mt-2">
-                  <label
-                    htmlFor="file-upload"
-                    className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                  >
-                    <span>Upload a file</span>
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      className="sr-only"
-                    />
-                  </label>
-                  <p className="pl-1">or drag and drop</p>
-                </div>
-                <p className="text-xs text-gray-500">
-                  PNG, JPG, GIF up to 10MB
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center">
-            <input
-              id="terms"
-              name="terms"
-              type="checkbox"
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              value={formik.values.terms}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I accept the{" "}
-              <a className="text-indigo-600 hover:underline" href="#">
-                Terms and Conditions
-              </a>
-              <span className="text-red-500">*</span>
-            </label>
-          </div>
-          {formik.touched.terms && formik.errors.terms ? (
-            <div className="text-red-500 text-sm">{formik.errors.terms}</div>
-          ) : null}
 
           <div className="flex justify-end space-x-2">
             <button
