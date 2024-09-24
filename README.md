@@ -167,8 +167,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 # PANELS
-- [] Admin-	Admin panel
-- [] User- user panel 
+- [*] Admin-	Admin panel
+- [*] User- user panel 
 
 # Features phase-1
 
