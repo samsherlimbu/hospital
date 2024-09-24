@@ -167,26 +167,25 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 # PANELS
-- [ ] Admin-	Admin panel
-- [ ] User- user panel 
+- [] Admin-	Admin panel
+- [] User- user panel 
 
 # Features phase-1
 
 - [ ] 1. Authentication (LOGIN REGISTER) (password hashing, JWT, db save details)
-- [ ] 2. KYC (image upload)
+- [ ] 2. Image upload
 - [ ] 3. multi user login
 - [ ] 4. Add patient 
 - [ ] 5. Add Doctor
 - [ ] 6. Add admin
 - [ ] 7. Update content or meassage
-- [ ] 8. 
-- [ ] 9. 
+- [ ] 8. Book Appointment 
 
 
 
 # phase-2
 - [ ] 1. google login
-- [ ] 2. 
+- [ ] 2. Chat
 - [ ] 3. support
 - [ ] 4. deployment
 - [ ] 4. 
