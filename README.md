@@ -167,19 +167,19 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 # PANELS
-- [*] Admin-	Admin panel
-- [*] User- user panel 
+- [X] Admin-	Admin panel
+- [X] User- user panel 
 
 # Features phase-1
 
-- [ ] 1. Authentication (LOGIN REGISTER) (password hashing, JWT, db save details)
-- [ ] 2. Image upload
-- [ ] 3. multi user login
-- [ ] 4. Add patient 
-- [ ] 5. Add Doctor
-- [ ] 6. Add admin
-- [ ] 7. Update content or meassage
-- [ ] 8. Book Appointment 
+- [X] 1. Authentication (LOGIN REGISTER) (password hashing, JWT, db save details)
+- [X] 2. Image upload
+- [X] 3. multi user login
+- [X] 4. Add patient 
+- [X] 5. Add Doctor
+- [X] 6. Add admin
+- [X] 7. Update content or meassage
+- [X] 8. Book Appointment 
 
 
 
